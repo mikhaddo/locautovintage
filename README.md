@@ -1,7 +1,7 @@
 # locautovintage
 rental old collection vehicles
 
-PROJET LOC'AUTO VINTAGE (autos de 1950 à 1990) --> site modèle : classicautoloc[dot]com
+PROJET LOC'AUTO VINTAGE (autos de 1950 à 1990)
 
 Site mettant en relation des propriétaires d'autos anciennes et des amateurs de balades vintage.
 

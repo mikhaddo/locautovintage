@@ -1,7 +1,7 @@
 # locautovintage
 rental old collection vehicles
 
-PROJET LOC'AUTO VINTAGE (autos de 1950 à 1990) --> site modèle : classicautoloc.com
+PROJET LOC'AUTO VINTAGE (autos de 1950 à 1990) --> site modèle : classicautoloc[dot]com
 
 Site mettant en relation des propriétaires d'autos anciennes et des amateurs de balades vintage.
 
@@ -56,7 +56,7 @@ if(working){
 * __Jean-Philippe__ <https://github.com/jean-philippeG>
 * __Brian__ <https://github.com/Britrvl>
 * __Thierry__ <https://github.com/mikhaddo>
-* __Murat__ <https://github.com/Murat389>}
+* __Murat__ <https://github.com/Murat389>
 
 ### table
 First Header | Second Header

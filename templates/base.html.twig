@@ -1,12 +1,55 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{# variable qui récupère les routes #}
+{% set route = app.request.attributes.get('_route') %}
+
+    <div class="container-fluid">
+        <header class="bg-dark">
+            <div class="row">
+
+            <nav>
+                <ul>
+                    <li class="nav-item {% if route == 'main' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('main') }}">/index</a>
+                    </li>
+                    <li class="nav-item {% if route == 'car_map' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('car_map') }}">'autos-disponibles'</a>
+                    </li>
+                    <li class="nav-item {% if route == 'contact' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+
+            </div>
+        </header>
+    </div>
+
+    {% block body %}{% endblock %}
+
+    {# style en dur dans le html for testing purposes #}
+    <footer style="position:fixed;bottom:10px;" class="bg-dark">
+        {# au cas ou thierry a besoin de tester du jason, laisser ça caché en footer #}
+        <ul>
+            <li class="nav-item {% if route == 'test_json' %} active {% endif %}">
+                <a class="nav-link" href="{{ path('test_json') }}">jason</a>
+            </li>
+        </ul>
+    </footer>
+
+    <script src="{{ asset('jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    {# <script src="{{ asset('js/api.openstreetmaps.js') }}"></script> #}
+    {% block javascripts %}{% endblock %}
+</body>
 </html>

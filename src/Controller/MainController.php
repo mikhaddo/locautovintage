@@ -16,4 +16,38 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+
+    /**
+     * @Route("/autos-disponibles", name="car_map")
+     * en cas de modification du name, penser à /locautovintage/templates/base.html.twig
+     */
+    public function carMap()
+    {
+        return $this->render('main/carMap.html.twig');
+    }
+
+    /**
+     * @Route("/test-json/", name="test_json")
+     */
+    public function testJson()
+    {
+
+        $fruits = ['Fraise', 'Orange', 'Banane', 'Pomme', 'Poire'];
+
+        return $this->json([
+            'fruits' => $fruits
+        ]);
+
+    }
+
+    /**
+     * @Route("/contactez-nous", name="contact")
+     */
+    public function contact()
+    {
+        return $this->render('main/contact.html.twig');
+    }
+
+
+// do not tuch at dat '{'
 }

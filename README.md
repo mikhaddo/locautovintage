@@ -48,7 +48,11 @@ if(working){
 
 ## todo
 - [X] retrouvailles sur le discord game !
-- [ ] cahier des charges
+- [ ] cahier des charges:
+    - [ ] améliorer lisibilité
+    - [ ] liste des technologies utilisées
+    - [ ] cahier des charges en pdf
+    - [ ] présentation type 'powerpoint'
 - [ ] page html de squelette bootstrap avec menu, couleurs, footer, classes
 - [ ] wiki : technos utilisées, par qui ; functionalitées site ; /etc/..
 
@@ -56,7 +60,7 @@ if(working){
 * __Jean-Philippe__ <https://github.com/jean-philippeG>
 * __Brian__ <https://github.com/Britrvl>
 * __Thierry__ <https://github.com/mikhaddo>
-* __Murat__ <https://github.com/Murat389>
+* __~~Murat~~__ <https://github.com/Murat389>
 
 ### table
 First Header | Second Header

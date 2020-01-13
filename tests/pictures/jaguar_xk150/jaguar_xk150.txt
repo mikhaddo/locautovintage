@@ -1,0 +1,8 @@
+Marque : Jaguar
+Model : XK150
+Année : 1958
+Type-Moteur : 6 cylindres en ligne
+Cylindrée : 3442 cm3
+Puissance réelle : 250 ch
+Vitesse_Maxi : 212 km/h
+Nombre_sieges : 2

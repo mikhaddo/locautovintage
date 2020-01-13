@@ -1,0 +1,8 @@
+Marque : Porsche
+Model : 964
+Année : 1991
+Type-Moteur : 6 cylindres a plat
+Cylindrée : 3600 cm3
+Puissance réelle : 250 ch
+Vitesse_Maxi : 260 km/h
+Nombre_sieges : 4

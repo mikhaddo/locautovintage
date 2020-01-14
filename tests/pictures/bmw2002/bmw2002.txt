@@ -1,0 +1,8 @@
+Marque : BMW
+Model : 2002
+Année : 1972
+Type-Moteur : 4 cylindres en ligne
+Cylindrée : 1990 cm3
+Puissance réelle : 100 ch
+Vitesse_Maxi : 173 km/h
+Nombre_sieges : 4

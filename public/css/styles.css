@@ -1,3 +1,75 @@
+body {
+
+   /*overflow-y: hidden;*/
+    /*position: relative;*/
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 .active>a{
     color:gold;
+}
+h1{
+    font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
+    color: #fdbb5a;
+    background-color: #000;
+}
+.img_home{
+    background-image: url(../images/home_new.jpg);
+    background-repeat: no-repeat;
+    height: 600px;
+    background-size: cover;
+    background-position: center center;
+}
+.icon{
+    background-image: url(../images/icon.jpg);
+    background-repeat: no-repeat;
+}
+.navbar-collapse {
+    float: right;
+  }
+.description{
+    text-align: center;
+}
+p{
+    color: white;
+}
+ul {
+    list-style:none;
+}
+footer{
+    padding-top: 0;
+    position: relative;
+    margin-top: 0;
+    margin: 0;
+}
+.fa {
+   
+    font-size: 20px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+  }
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  .fa-instagram {
+    background: #125688;
+    color: white;
+  }
+  #main-navbar .nav-item.active>.nav-link{
+    color: #d3b842;
+}
+.shadow-text{
+  background-color: rgba(255, 255, 255, 0.5);
+    text-shadow: 2px 4px 4px #fff;
+  }
+@media only screen and (max-width: 576px) {
+.title{
+}
 }

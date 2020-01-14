@@ -1,23 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     {% block stylesheets %}{% endblock %}
 </head>
-<body>
-{# variable qui récupère les routes #}
-{% set route = app.request.attributes.get('_route') %}
-
+<body class="bg-dark d-flex flex-column h-100">
+    {# variable qui récupère les routes #}
+    {% set route = app.request.attributes.get('_route') %}
     <div class="container-fluid">
-        <header class="bg-dark">
-            <div class="row">
+        <div class="row">
+            <h1 class="col-md-12 text-center title pb-3 display-2">Loc' Auto Vintage</h1>
+        </div>
+    </div>
+    <header class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
+            <a href="#"><img src="{{ asset('images/icon.jpg') }}" class="icon pb-2" alt="icon"></a>
+            <a class="navbar-brand text-warning pl-5" href="#">Accueil</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav pr-5">
+                    <li class="nav-item active"><a class="nav-link text-warning" href="#">Selection</a></li>
+                    <li class="nav-item {% if route == 'main' %} active {% endif %}"><a class="nav-link text-warning" href="#">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link text-warning" href="#">Inscription</a></li>
+                    <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link text-warning" href="#">Contact</a></li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
+                    <button class="btn btn-warning my-2 my-sm-0" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    {#div body#}
+    <div class="container-fluid bg-secondary">
+    {% block body %}{% endblock %}
+    </div>
+    {#Footer#}
+    <footer class="container text-warning mt-auto pb-5">
+        <div class="row bg-dark">
+            <div class="col-md-4 mt-3">Contact:
+                <span class="font-weight-bold">LocAutoVintage</span><br>
+                <span>
+                    <span><td>&nbsp;</td>07.85.01.01.01</span><br>
+                    <span><td>&nbsp;</td>contact@locautovintage.com</span><br>
+                </span>
+            </div>
+            <div class="col-md-4 mt-3" style="text-align: center;">C.G.U.</span><br><br>
+                <span><a href="#" class="fa fa-facebook"></a></span>
+                <span><a href="#" class="fa fa-twitter"></a></span></li></span>
+                <span><a href="#" class="fa fa-instagram"></a></span><br>
+            </div>
+            <div class="col-md-4 mt-3" style="text-align: right;">©2020 LocAutoVintage</div>
+        </div><br>
+        <div class="row col-md-4 offset-5 pt-0"><br><br></div>
+    </footer>
+    {#Inclusion des Scripts#}
+    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    {# <script src="{{ asset('js/api.openstreetmaps.js') }}"></script> #}
+    {% block javascripts %}{% endblock %}
+</body>
+</html>
 
-            <nav>
+{#<nav>
                 <ul>
                     <li class="nav-item {% if route == 'main' %} active {% endif %}">
                         <a class="nav-link" href="{{ path('main') }}">/index</a>
@@ -29,27 +85,14 @@
                         <a class="nav-link" href="{{ path('contact') }}">Contact</a>
                     </li>
                 </ul>
-            </nav>
+            </nav>#}
 
-            </div>
-        </header>
-    </div>
-
-    {% block body %}{% endblock %}
-
-    {# style en dur dans le html for testing purposes #}
-    <footer style="position:fixed;bottom:10px;" class="bg-dark">
+            {# style en dur dans le html for testing purposes #}
+    {#<footer style="container-fluid bg-4 text-center position:fixed;bottom:10px;" class="bg-dark">
         {# au cas ou thierry a besoin de tester du jason, laisser ça caché en footer #}
-        <ul>
+        {#<ul>
             <li class="nav-item {% if route == 'test_json' %} active {% endif %}">
-                <a class="nav-link" href="{{ path('test_json') }}">jason</a>
+                <a class="nav-link text-center" href="{{ path('test_json') }}">C.G.U.</a>
             </li>
         </ul>
-    </footer>
-
-    <script src="{{ asset('jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    {# <script src="{{ asset('js/api.openstreetmaps.js') }}"></script> #}
-    {% block javascripts %}{% endblock %}
-</body>
-</html>
+    </footer>#}

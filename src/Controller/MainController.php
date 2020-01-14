@@ -47,7 +47,13 @@ class MainController extends AbstractController
     {
         return $this->render('main/contact.html.twig');
     }
-
+/**
+ * @Route("/inscription/", name="app_register")
+ */
+public function register()
+{
+    return $this->render('main/inscription.html.twig');
+}
 
 // do not tuch at dat '{'
 }

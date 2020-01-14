@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Profil{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <h2 class="col-8 offset-2 mt-5 text-center">Profil!</h2>
+</div>
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <p>ID : {{ app.user.id }}</p>
+        <p>E-mail : {{ app.user.email }}</p>
+    </div>
+</div>
+{% endblock %}

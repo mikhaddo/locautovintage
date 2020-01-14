@@ -21,17 +21,22 @@
     </div>
     <header class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
-            <a href="#"><img src="{{ asset('images/icon.jpg') }}" class="icon pb-2" alt="icon"></a>
-            <a class="navbar-brand text-warning pl-5" href="#">Accueil</a>
+            <a href="{{ path('home') }}#home"><img src="{{ asset('images/icon_new.jpg') }}" class="icon pb-2" alt="icon"></a>
+            <a class="navbar-brand text-warning pl-5" href="{{ path('home') }}#home">Accueil</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto"></ul>
                 <ul class="navbar-nav pr-5">
-                    <li class="nav-item active"><a class="nav-link text-warning" href="#">Selection</a></li>
-                    <li class="nav-item {% if route == 'main' %} active {% endif %}"><a class="nav-link text-warning" href="#">Connexion</a></li>
-                    <li class="nav-item"><a class="nav-link text-warning" href="#">Inscription</a></li>
+                    <li class="nav-item active"><a class="nav-link text-warning" href="#">La Collection</a></li>
+                    {% if app.user %}
+                    <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link text-warning" href="{{ path('profil') }}">Profil</a></li>
+                    <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link text-warning" href="{{ path('app_logout') }}#logout">Déconnexion</a></li>
+                    {% else %}
+                    <li class="nav-item {% if route == 'main' %} active {% endif %}"><a class="nav-link text-warning" href="{{ path('app_login') }}">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link text-warning" href="{{ path('app_register') }}">Inscription</a></li>
+                    {% endif %}
                     <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link text-warning" href="#">Contact</a></li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">

@@ -14,6 +14,12 @@ h1{
     color: #fdbb5a;
     background-color: #000;
 }
+h2{
+    font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
+    color: #fdbb5a;
+    text-align: center;
+    margin-top: 100px;
+}
 .img_home{
     background-image: url(../images/home_new.jpg);
     background-repeat: no-repeat;
@@ -21,8 +27,12 @@ h1{
     background-size: cover;
     background-position: center center;
 }
+.image_home_register{
+
+  background-position: right;
+}
 .icon{
-    background-image: url(../images/icon.jpg);
+    background-image: url(../images/icon_new.jpg);
     background-repeat: no-repeat;
 }
 .navbar-collapse {
@@ -69,6 +79,21 @@ footer{
   background-color: rgba(255, 255, 255, 0.5);
     text-shadow: 2px 4px 4px #fff;
   }
+.backcolor{
+
+  background-color: #8f6630;
+}
+ form{
+  margin-top: 50px;
+ }
+ .form-control{
+  border: 0;
+  border-bottom: 1.5px solid rgb(163, 163, 163, .3);
+  border-radius: 0;
+}
+ input{
+  /*margin-left: 25%;*/
+ }
 @media only screen and (max-width: 576px) {
 .title{
 }

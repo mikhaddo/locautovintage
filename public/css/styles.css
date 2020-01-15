@@ -1,7 +1,4 @@
 body {
-
-   /*overflow-y: hidden;*/
-    /*position: relative;*/
     height: 100%;
     margin: 0;
     padding: 0;
@@ -9,14 +6,25 @@ body {
 .active>a{
     color:gold;
 }
+a:hover{
+    background: #c08b3a;
+    color: black;
+}
+a:link{
+    text-decoration: none;
+    color: #c08b3a;
+}
+a:visited{
+    color: #ffffff;
+}
 h1{
     font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
-    color: #fdbb5a;
+    color: #c08b3a;
     background-color: #000;
 }
 h2{
     font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
-    color: #fdbb5a;
+    color: black;
     text-align: center;
     margin-top: 100px;
 }
@@ -35,6 +43,15 @@ h2{
     background-image: url(../images/icon_new.jpg);
     background-repeat: no-repeat;
 }
+.hometext{
+    height: 500px;
+    overflow-y: scroll;
+    overflow:auto;
+    overflow-x: hidden;
+    width: 10px;
+
+}
+overflow-y: auto;
 .navbar-collapse {
     float: right;
   }
@@ -53,26 +70,31 @@ footer{
     margin-top: 0;
     margin: 0;
 }
+.textcolor{
+   color: #c08b3a;
+}
+.socialicons{
+    text-align: center;
+}
 .fa {
-   
     font-size: 20px;
     width: 50px;
     text-align: center;
     text-decoration: none;
   }
-  .fa-facebook {
+.fa-facebook {
     background: #3B5998;
     color: white;
   }
-  .fa-twitter {
+.fa-twitter {
     background: #55ACEE;
     color: white;
   }
-  .fa-instagram {
-    background: #125688;
+.fa-instagram {
+    background: #88127e;
     color: white;
   }
-  #main-navbar .nav-item.active>.nav-link{
+#main-navbar .nav-item.active>.nav-link{
     color: #d3b842;
 }
 .shadow-text{
@@ -83,10 +105,10 @@ footer{
 
   background-color: #8f6630;
 }
- form{
+form{
   margin-top: 50px;
  }
- .form-control{
+.form-control{
   border: 0;
   border-bottom: 1.5px solid rgb(163, 163, 163, .3);
   border-radius: 0;
@@ -94,7 +116,3 @@ footer{
  input{
   /*margin-left: 25%;*/
  }
-@media only screen and (max-width: 576px) {
-.title{
-}
-}

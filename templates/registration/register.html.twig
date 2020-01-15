@@ -5,16 +5,18 @@
 {% block body %}
 <div class="row backcolor">
     <div class="col-6 img_home image_home_register"></div>
-    <div class="col-6 form">
-    <h2 class="mt-5">Inscription</h2>
-
+    <div class="col-4 form">
+        <form class="offset-6">
+    <h2 class="h3 mb-3">Inscription</h2>
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
-        <button class="btn btn-warning">S'inscrire</button>
+        <button class="btn btn-warning mt-2">S'inscrire</button>
     {{ form_end(registrationForm) }}
+</form>
     </div>
 </div>
+
 {% endblock %}

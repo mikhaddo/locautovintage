@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use App\Entity\User;
+use App\Entity\Vehicle;
 
 class MainController extends AbstractController
 {
@@ -19,13 +21,20 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/autos-disponibles", name="car_map")
+     * @Route("/autos-disponibles/", name="car_list")
      * en cas de modification du name, penser à /locautovintage/templates/base.html.twig
      */
-    public function carMap()
+    public function carList()
     {
-        return $this->render('main/carMap.html.twig');
+        $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
+
+        $vehicles = $vehicleRepository->findAll();
+
+        return $this->render('main/carList.html.twig', [
+            'vehicles' => $vehicles
+        ]);
     }
+
 
     /**
      * @Route("/test-json/", name="test_json")

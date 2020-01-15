@@ -10,15 +10,14 @@ body {
     color:gold;
 }
 h1{
-    font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
-    color: #fdbb5a;
     background-color: #000;
 }
 h2{
+  font-size: 3em;
+}
+h1, h2{
     font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
     color: #fdbb5a;
-    text-align: center;
-    margin-top: 100px;
 }
 .img_home{
     background-image: url(../images/home_new.jpg);
@@ -97,4 +96,9 @@ footer{
 @media only screen and (max-width: 576px) {
 .title{
 }
+}
+
+.carlabel{
+  color: #fdbb5a;
+  text-transform: uppercase;
 }

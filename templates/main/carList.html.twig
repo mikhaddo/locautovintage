@@ -2,6 +2,19 @@
 
 {% block title %}La collection{% endblock %}
 
+{% block stylesheets %}
+{# ne gère pas les images, donc pour le moment : CDN #}
+{# <link rel="stylesheet" href="{{ asset('css/leaflet.css') }}"> #}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
+ <style>
+    #map{
+        width:80%;
+        height:700px;
+        margin:auto;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
 
 {#Intégration de la collection#}
@@ -30,4 +43,11 @@
     </div>
 </div>
 
+<div id="map"></div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/leaflet.js') }}"></script>
+<script src="{{ asset('js/api.openstreetmaps.js') }}"></script>
 {% endblock %}

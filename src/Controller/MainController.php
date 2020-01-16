@@ -29,7 +29,7 @@ class MainController extends AbstractController
         $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
 
         $vehicles = $vehicleRepository->findAll();
-
+        dump($vehicles);
         return $this->render('main/carList.html.twig', [
             'vehicles' => $vehicles
         ]);
@@ -41,11 +41,25 @@ class MainController extends AbstractController
      */
     public function testJson()
     {
+        $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
+        $vehicles = $vehicleRepository->findAll();
 
-        $fruits = ['Fraise', 'Orange', 'Banane', 'Pomme', 'Poire'];
+        /**
+         * on reconstruit un beau tableau pour éviter la circular référence
+         * l'object qui contient des objects à l'infini
+         * le serpent qui se mort la queue.
+         */
+        foreach($vehicles as $vehicle){
+            $returnVehicles[] = [
+                'city' => $vehicle->getOwner()->getCity(),
+                'firstname' => $vehicle->getOwner()->getFirstname(),
+                'year_produce' => $vehicle->getYearProduced(),
+                'picture' => $vehicle->getPictures(),
+            ];
+        }
 
         return $this->json([
-            'fruits' => $fruits
+            'returnVehicles' => $returnVehicles,
         ]);
 
     }

@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto"></ul>
                 <ul class="navbar-nav pr-5">
-                    <li class="nav-item active"><a class="nav-link" href="#">La Collection</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="{{ path('car_list') }}">La Collection</a></li>
                     {% if app.user %}
                     <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link" href="{{ path('profil') }}">Profil</a></li>
                     <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link" href="{{ path('app_logout') }}#logout">Déconnexion</a></li>

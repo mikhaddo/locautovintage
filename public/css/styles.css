@@ -1,131 +1,183 @@
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-.active>a{
-    color:gold;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
-a:hover{
-    background-color: #c08b3a;
-    color: black;
+
+.active>a {
+	color: gold;
 }
-a:link{
-    text-decoration: none;
-    color: #c08b3a;
+
+a:hover {
+	background-color: #c08b3a;
+	color: black;
 }
-#iconcolor:hover{
-    background-color: transparent;
+
+a:link {
+	text-decoration: none;
+	color: #c08b3a;
 }
-h1{
-    font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
-    color: #c08b3a;
-    background-color: #000;
+
+#iconcolor:hover {
+	background-color: transparent;
 }
-h2{
-    font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
-    color: black;
+
+h1 {
+	font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
+	color: #c08b3a;
+	background-color: #000;
+}
+
+h2 {
+	font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
+	color: black;
 	text-align: center;
 }
-.img_home{
-    background-image: url(../images/home_new.jpg);
-    background-repeat: no-repeat;
-    height: 600px;
-    background-size: cover;
-    background-position: center center;
-}
-.image_home_register{
 
-  background-position: right;
+.img_home {
+	background-image: url(../images/home_new.jpg);
+	background-repeat: no-repeat;
+	height: 600px;
+	background-size: cover;
+	background-position: center center;
 }
-.icon{
-    background-image: url(../images/icon_new.jpg);
-    background-repeat: no-repeat;
+
+.image_home_register {
+
+	background-position: right;
 }
-.hometext{
-    height: 500px;
-    overflow-y: scroll;
-    overflow:auto;
-    overflow-x: hidden;
-    width: 10px;
+
+.icon {
+	background-image: url(../images/icon_new.jpg);
+	background-repeat: no-repeat;
 }
+
+.hometext {
+	height: 500px;
+	overflow-y: scroll;
+	overflow: auto;
+	overflow-x: hidden;
+	width: 10px;
+}
+
 .navbar-collapse {
-    float: right;
-  }
-.description{
-    text-align: center;
+	float: right;
 }
-p{
-    color: white;
+
+.description {
+	text-align: center;
 }
+
 ul {
-    list-style:none;
+	list-style: none;
 }
-footer{
-    padding-top: 0;
-    position: relative;
-    margin-top: 0;
-    margin: 0;
+
+footer {
+	padding-top: 0;
+	position: relative;
+	margin-top: 0;
+	margin: 0;
 }
-.textcolor{
-   color: #c08b3a;
+
+.textcolor {
+	color: #c08b3a;
 }
-.cgucolor{
-    color: white;
+
+.cgucolor {
+	color: white;
 }
-.socialicons{
-    text-align: center;
+
+.socialicons {
+	text-align: center;
 }
-.fa{
-    font-size: 20px;
-    width: 50px;
-    text-align: center;
-    text-decoration: none;
-  }
+
+.fa {
+	font-size: 20px;
+	width: 50px;
+	text-align: center;
+	text-decoration: none;
+}
+
 .fa-facebook {
-    background: #3B5998;
-    color: white;
-  }
+	background: #3B5998;
+	color: white;
+}
+
 .fa-twitter {
-    background: #55ACEE;
-    color: white;
-  }
+	background: #55ACEE;
+	color: white;
+}
+
 .fa-instagram {
-    background: #88127e;
-    color: white;
-  }
-#main-navbar .nav-item.active>.nav-link{
-    color: #d3b842;
+	background: #88127e;
+	color: white;
 }
-.shadow-text{
-  background-color: rgba(255, 255, 255, 0.5);
-    text-shadow: 2px 4px 4px #fff;
-  }
-.backcolor{
-  background-color: #8f6630;
+
+#main-navbar .nav-item.active>.nav-link {
+	color: #d3b842;
 }
-form{
-  margin-top: 50px;
- }
-.form-control{
-  border: 0;
-  border-bottom: 1.5px solid rgb(163, 163, 163, .3);
-  border-radius: 0;
+
+.shadow-text {
+	background-color: rgba(255, 255, 255, 0.5);
+	text-shadow: 2px 4px 4px #fff;
 }
-.contwidth{
-    width: 100%;
- }
-.contcolor{
-     background-color: #8f6630;
-    background-size: contain;
-    height: 600px;
-    width: auto;
- }
+
+.backcolor {
+	background-color: #8f6630;
+}
+
+form {
+	margin-top: 50px;
+}
+
+.form-control {
+	border: 0;
+	border-bottom: 1.5px solid rgb(163, 163, 163, .3);
+	border-radius: 0;
+}
+
+.contwidth {
+	width: 100%;
+}
+
+.contcolor {
+	background-color: #8f6630;
+	background-size: contain;
+	height: 600px;
+	width: auto;
+}
 
 
 
+/**********************/
+/****** Ajout JP ******/
+/**********************/
 
+/* Page carList*/
 .carlabel {
 	color: black;
 	text-transform: uppercase;
+}
+
+/* Page carDetail*/
+.car-detail-gen-box {
+	color: black;
+}
+
+.car-detail-gen-box .car-detail-tech span {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.car-detail-gen-box .car-detail-info span {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.car-detail-tech {
+	border: 2px solid #d3b842;
+}
+
+.car-detail-info {
+	border: 2px solid #d3b842;
 }

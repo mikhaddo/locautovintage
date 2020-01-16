@@ -7,15 +7,19 @@ body {
     color:gold;
 }
 a:hover{
-    background: #c08b3a;
+    background-color: #c08b3a;
     color: black;
 }
 a:link{
     text-decoration: none;
     color: #c08b3a;
 }
-a:visited{
-    color: #ffffff;
+#iconcolor:hover{
+    background-color: transparent;
+    -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+          -webkit-transition: -webkit-transform .8s ease-in-out;
+          transition:         transform .8s ease-in-out;
 }
 h1{
     font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
@@ -42,6 +46,8 @@ h2{
 .icon{
     background-image: url(../images/icon_new.jpg);
     background-repeat: no-repeat;
+    border-radius: 50%;
+
 }
 .hometext{
     height: 500px;
@@ -49,7 +55,6 @@ h2{
     overflow:auto;
     overflow-x: hidden;
     width: 10px;
-
 }
 overflow-y: auto;
 .navbar-collapse {
@@ -72,6 +77,9 @@ footer{
 }
 .textcolor{
    color: #c08b3a;
+}
+.cgucolor{
+    color: white;
 }
 .socialicons{
     text-align: center;
@@ -115,4 +123,13 @@ form{
 }
  input{
   /*margin-left: 25%;*/
+ }
+ .contwidth{
+    width: 100%;
+ }
+ .contcolor{
+     background-color: #8f6630;
+    background-size: contain;
+    height: 600px;
+    width: auto;
  }

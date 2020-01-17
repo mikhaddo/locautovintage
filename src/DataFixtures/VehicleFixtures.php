@@ -27,21 +27,21 @@ class VehicleFixtures extends Fixture implements DependentFixtureInterface
         $faker = Faker\Factory::create('fr_FR');
 
         // entre les 4 utilisateurs, penser à changer en cas de soucis mais aussi sur UserFixtures.php
-        for($i = 0; $i <= 3; $i++){
+        for($i = 0; $i <= 5; $i++){
             $newVehicle = new Vehicle();
             $newVehicle
                 ->setBrand($faker->company)
-                ->setModel('mik')
+                ->setModel($faker->word)
                 // $faker->year
-                ->setYearProduced(1978)
-                ->setEngineType(50)
-                ->setEngineDisplacement(4)
-                ->setEnginePower(20000)
-                ->setMaxSpeed(200)
-                ->setMaxSeats(2)
+                ->setYearProduced($faker->year('1995'))
+                ->setEngineType($faker->randomDigit())
+                ->setEngineDisplacement($faker->randomNumber(2))
+                ->setEnginePower($faker->randomNumber(4))
+                ->setMaxSpeed($faker->randomNumber(3))
+                ->setMaxSeats($faker->randomDigit())
                 // entre les 4 utilisateurs, penser à changer en cas de soucis  mais aussi sur UserFixtures.php
-                ->setOwner( $this->getReference('user' . $faker->biasedNumberBetween(0,3,'sqrt')) )
-                ->setPictures(['1bmw2002-3.jpg','1lotuselises1-2.jpg'])
+                ->setOwner( $this->getReference('user' . $faker->biasedNumberBetween(0,5,'sqrt')) )
+                ->setPictures(['1bmw2002-3.jpg','1lotuselises1-2.jpg','3mgb-4.jpg','3peugeot504cabriolet-4.jpg','3porsche964-3.jpg'])
             ;
 
             /**

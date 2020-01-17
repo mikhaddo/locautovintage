@@ -137,18 +137,22 @@ window.onload = () => {
          * ~ l'utilité de 'this.' ?
          */
         for(i=0;i<markers.returnVehicles.length;i++){
-            let alo = markers.returnVehicles[i]['city'];
-            getAjaxGeo(markers.returnVehicles[i]['city']).then((response,alo) => {
-                console.info('getAjaxGeo :: ' + response.features[0].geometry.coordinates);
-                L.marker([response.features[0].geometry.coordinates[1],response.features[0].geometry.coordinates[0]])
-                    .addTo(map)
-                    // le bind poppup doit afficher l'image récupérée depuis la database
-                    // en tout cas on ne peut pas rappeller son objet ci-dessous
-                    // markers a disparu, maintenant c'est response ou alo
 
-                    .bindPopup(response.features[0].properties.display_name)
-                    //.bindPopup(alo)
-                ;
+            // what time is it ? it is not workin'o'clock
+            var varReturnVehicles = markers.returnVehicles[i];
+
+            getAjaxGeo(markers.returnVehicles[i]['city']).then((response) => {
+
+                    console.info('getAjaxGeo :: ' + response.features[0].geometry.coordinates);
+                    L.marker([response.features[0].geometry.coordinates[1],response.features[0].geometry.coordinates[0]])
+                        .addTo(map)
+                        // le bind poppup doit afficher l'image récupérée depuis la database
+                        // en tout cas on ne peut pas rappeller son objet ci-dessous
+                        // markers a disparu, maintenant c'est response ou alo
+
+                        .bindPopup(response.features[0].properties.display_name + '<br>Propriétaire du véhicule :: <br>' + varReturnVehicles.firstname )
+                    ;
+
             }).catch(error => {
                 console.error('Error \'getAjaxGeo\' ! possibilité mauvais nom de ville.');
                 console.dir(error);

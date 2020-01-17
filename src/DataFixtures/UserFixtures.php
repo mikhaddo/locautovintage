@@ -15,10 +15,28 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserFixtures extends Fixture
 {
     private $passwordEncoder;
+    private $city;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
+
         $this->passwordEncoder = $passwordEncoder;
+    }
+
+    public function generatorCities($number)
+    {
+
+       $SelectTableauCities = [
+            'autun',
+            'epinac',
+            'auxy',
+            'morlet',
+            'curgy',
+            'monthelon',
+        ];
+        echo $SelectTableauCities[$number];
+
+        $this->city = $SelectTableauCities[$number];
     }
 
     public function load(ObjectManager $manager)
@@ -26,7 +44,7 @@ class UserFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
 
         // entre les 4 utilisateurs, penser à changer en cas de soucis mais aussi sur VehicleFixtures.php
-        for($i = 0; $i <= 3; $i++){
+        for($i = 0; $i <= 5; $i++){
             $newUser = new User();
             $newUser
                 ->setEmail($faker->email)
@@ -43,17 +61,31 @@ class UserFixtures extends Fixture
                 ->setPhoneNumber($faker->phoneNumber)
                 // en dur aussi
                 ->setInsuranceName('Titus Corp.')
+                // ->setCity( $this->generatorCities($i) )
             ;
 
             /**
              * pour donner aussi le role admin et la ville autun au premier utilisateur
              * les autres auront une citée fake
              */
+
+            //echo $this->city->generatorCities($1);
+
             if($i == 0){
                 $newUser->setRoles(['ROLE_ADMIN']);
                 $newUser->setCity('autun');
-            } else if($i != 0){
-                $newUser->setCity($faker->city);
+            } else if($i == 1){
+                $newUser->setCity('epinac');
+            } else if($i == 2){
+                $newUser->setCity('auxy');
+            } else if($i == 3){
+                $newUser->setCity('tintry');
+            } else if($i == 4){
+                $newUser->setCity('tavernay');
+            } else if($i == 5){
+                $newUser->setCity('morlet');
+            } else {
+                $newUser->setCity('chalon-sur-saone');
             }
 
             //->addVehicle() be carrefull with that -> got to VehicleFixtures.php

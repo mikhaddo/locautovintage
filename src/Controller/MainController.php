@@ -28,15 +28,29 @@ class MainController extends AbstractController
     /**
      * @Route("/autos-disponibles/", name="car_list")
      * en cas de modification du name, penser à /locautovintage/templates/base.html.twig
+     * Affiche la 1ere photo de chaque voiture disponible dans la collection
      */
     public function carList()
     {
         $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
 
         $vehicles = $vehicleRepository->findAll();
-
+        dump($vehicles);
         return $this->render('main/carList.html.twig', [
             'vehicles' => $vehicles
+        ]);
+    }
+
+    /**
+     * @Route("/auto-details/{id}", name="car_detail")
+     * en cas de modification du name, penser à /locautovintage/templates/base.html.twig
+     * Affiche la fiche technique de la voiture sélectionnée
+     */
+    public function carDetail(Vehicle $vehicle)
+    {
+
+        return $this->render('main/carDetail.html.twig', [
+            'vehicle' => $vehicle
         ]);
     }
 
@@ -46,11 +60,25 @@ class MainController extends AbstractController
      */
     public function testJson()
     {
+        $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
+        $vehicles = $vehicleRepository->findAll();
 
-        $fruits = ['Fraise', 'Orange', 'Banane', 'Pomme', 'Poire'];
+        /**
+         * on reconstruit un beau tableau pour éviter la circular référence
+         * l'object qui contient des objects à l'infini
+         * le serpent qui se mort la queue.
+         */
+        foreach($vehicles as $vehicle){
+            $returnVehicles[] = [
+                'city' => $vehicle->getOwner()->getCity(),
+                'firstname' => $vehicle->getOwner()->getFirstname(),
+                'year_produce' => $vehicle->getYearProduced(),
+                'picture' => $vehicle->getPictures(),
+            ];
+        }
 
         return $this->json([
-            'fruits' => $fruits
+            'returnVehicles' => $returnVehicles,
         ]);
 
     }

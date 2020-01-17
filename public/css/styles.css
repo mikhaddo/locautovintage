@@ -32,16 +32,16 @@ h2{
     color: black;
 	  text-align: center;
 }
-.img_home{
-    background-image: url(../images/home_new.jpg);
-    background-repeat: no-repeat;
-    height: 600px;
-    background-size: cover;
-    background-position: center center;
+.img_home {
+	background-image: url(../images/home_new.jpg);
+	background-repeat: no-repeat;
+	height: 600px;
+	background-size: cover;
+	background-position: center center;
 }
-.image_home_register{
+.image_home_register {
 
-  background-position: right;
+	background-position: right;
 }
 .icon{
     background-image: url(../images/icon_new.jpg);
@@ -49,12 +49,12 @@ h2{
     border-radius: 50%;
 
 }
-.hometext{
-    height: 500px;
-    overflow-y: scroll;
-    overflow:auto;
-    overflow-x: hidden;
-    width: 10px;
+.hometext {
+	height: 500px;
+	overflow-y: scroll;
+	overflow: auto;
+	overflow-x: hidden;
+	width: 10px;
 }
 .navbar-collapse {
     float: right;
@@ -63,22 +63,22 @@ h2{
     text-align: center;
 }
 ul {
-    list-style:none;
+	list-style: none;
 }
-footer{
-    padding-top: 0;
-    position: relative;
-    margin-top: 0;
-    margin: 0;
+footer {
+	padding-top: 0;
+	position: relative;
+	margin-top: 0;
+	margin: 0;
 }
-.textcolor{
-   color: #c08b3a;
+.textcolor {
+	color: #c08b3a;
 }
-.cgucolor{
-    color: white;
+.cgucolor {
+	color: white;
 }
-.socialicons{
-    text-align: center;
+.socialicons {
+	text-align: center;
 }
 .fa{
     font-size: 20px;
@@ -105,9 +105,9 @@ footer{
   background-color: rgba(255, 255, 255, 0.5);
     /*text-shadow: 2px 4px 4px #fff;*/
   }
-  .bottext{
+.bottext{
     color: white;
-  }
+}
 .backcolor{
   background-color: #8f6630;
 }
@@ -122,7 +122,7 @@ form{
  input{
   /*margin-left: 25%;*/
  }
- .contwidth{
+.contwidth{
     width: 100%;
 }
  .contcolor{
@@ -131,10 +131,37 @@ form{
     height: 600px;
     width: auto;
 }
+.carprof{
+    color: black;
+}
+/**********************/
+/****** Ajout JP ******/
+/**********************/
+
+/* Page carList*/
 .carlabel {
 	color: black;
 	text-transform: uppercase;
 }
-.carprof{
-    color: black;
+/* Page carDetail*/
+.car-detail-gen-box {
+	color: black;
+}
+
+.car-detail-gen-box .car-detail-tech span {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.car-detail-gen-box .car-detail-info span {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.car-detail-tech {
+	border: 2px solid #d3b842;
+}
+
+.car-detail-info {
+	border: 2px solid #d3b842;
 }

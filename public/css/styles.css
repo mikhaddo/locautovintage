@@ -109,7 +109,7 @@ footer {
   color: white;
 }
 .backcolor{
-  background-color: #8f6630;
+  background-color: #bc8230;
 }
 form{
   margin-top: 50px;
@@ -129,7 +129,7 @@ input{
   width: 100%;
 }
 .contcolor{
-   background-color: #8f6630;
+   background-color: #bc8230;
   background-size: contain;
   height: 600px;
   width: auto;
@@ -174,16 +174,45 @@ input{
   background-position: center center;
 }
 
-/**********************/
-/****** Ajout JP ******/
-/**********************/
+.backcolor {
+	background-color: #bc8230;
+}
 
-/* Page carList*/
+form {
+	margin-top: 50px;
+}
+
+.form-control {
+	border: 0;
+	border-bottom: 1.5px solid rgb(163, 163, 163, .3);
+	border-radius: 0;
+}
+
+.contwidth {
+	width: 100%;
+}
+
+.contcolor {
+	background-color: #bc8230;
+	background-size: contain;
+	height: 600px;
+	width: auto;
+}
+
+
+
+/********************************************/
+/***************** Ajout JP *****************/
+/********************************************/
+
+/* DEBUT Page carList*/
 .carlabel {
 	color: black;
 	text-transform: uppercase;
 }
-/* Page carDetail*/
+/* FIN Page carList*/
+
+/* DEBUT Page carDetail*/
 .car-detail-gen-box {
 	color: black;
 }
@@ -205,3 +234,32 @@ input{
 .car-detail-info {
 	border: 2px solid #d3b842;
 }
+
+/* Styles de l'overlay */
+.overlay{
+	position: fixed;
+	z-index: 99;
+	background: rgba(0, 0, 0, 0.6);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.overlay>img{
+	width: 50%;
+}
+
+/* Styles du bouton de fermeture de l'overlay */
+.overlay>.close-button{
+	position: absolute;
+    top: 20px;
+    right: 200px;
+    color: #CECECE;
+    font-size: 3rem;
+    cursor: pointer;
+}
+/* FIN Page carDetail*/

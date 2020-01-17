@@ -4,7 +4,7 @@
 
 {% block body %}
 
-{#Intégration de la fiche technique#}
+{# Intégration des photos miniatures et de la fiche signalétique #}
 <div class="row backcolor">
     <div class="col-md-12 text-center">
         <h2>Fiche technique</h2>
@@ -14,19 +14,17 @@
 <div class="row backcolor">
     <div class="col-12 col-md-10 offset-md-1 mt-5">
         <div class="d-flex flex-wrap justify-content-center">
-            {% for i in 0..4 %}
-                {% if vehicle.pictures[i] is not empty %}
-                    <p class="thumbnail mw-100 mb-2 m-sm-3">
-                        <div class="mw-100" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[i]) }}');height:150px; width:275px; background-size: cover; background-position: center center;">
-                        </div>
-                    </p>
-                {% endif %}
+            {# Affichage des photos minatures disponibles (entre 1 et 5 photos) sur une ligne #}
+            {% for picture in vehicle.pictures %}
+            <p class="thumbnail mw-100 mb-2 m-sm-3">
+                <div data-img="{{ asset('images/pictures/' ~ picture) }}" class="mw-100 img-thumbnail viewer-event" style="background-image: url('{{ asset('images/pictures/' ~ picture) }}');height:150px; width:275px; background-size: cover; background-position: center center;"></div>
+            </p>
             {% endfor %}
-
         </div>
 
         <div class="d-flex flex-wrap align-items-content justify-content-center mt-5 mb-5 car-detail-gen-box">
-            <div class="col-4 car-detail-tech">
+            {# Bloc caractéristiques techniques #}
+            <div class="col-10 col-md-4 car-detail-tech p-3">
                 <p><span>Caractéristiques techniques</span></p>
                 <p>Marque : {{ vehicle.brand }}</p>
                 <p>Modèle : {{ vehicle.model }}</p>
@@ -38,13 +36,14 @@
                 <p>Nombre de places : {{ vehicle.maxSeats }} places</p>
             </div>
 
-            <div class="col-4 offset-1 car-detail-info">
+            {# Bloc coordonnées propriétaire #}
+            <div class="col-10 col-md-4 offset-md-1 car-detail-info p-3">
                 <p><span>Coordonnées du propriétaire</span></p>
                 <p>Nom : {{ vehicle.owner.lastname }}</p>
                 <p>Prénom : {{ vehicle.owner.firstname }}</p>
                 <p>Localisation : {{ vehicle.owner.postcode }} {{ vehicle.owner.city }}</p>
                 <p>Téléphone : {{ vehicle.owner.phoneNumber }}</p>
-                <p class="email">Email : {{ vehicle.owner.email }}</p>
+                <p>Email : {{ vehicle.owner.email }}</p>
                 <p>Assurance : {{ vehicle.owner.insuranceName }}</p>
             </div>
         </div>
@@ -52,4 +51,9 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {# Affichage photo en grand format en overlay #}
+    <script src="{{ asset('js/viewer.js') }}"></script>
 {% endblock %}

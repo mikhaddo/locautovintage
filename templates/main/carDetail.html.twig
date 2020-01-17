@@ -24,7 +24,7 @@
 
         <div class="d-flex flex-wrap align-items-content justify-content-center mt-5 mb-5 car-detail-gen-box">
             {# Bloc caractéristiques techniques #}
-            <div class="col-4 car-detail-tech">
+            <div class="col-10 col-md-4 car-detail-tech p-3">
                 <p><span>Caractéristiques techniques</span></p>
                 <p>Marque : {{ vehicle.brand }}</p>
                 <p>Modèle : {{ vehicle.model }}</p>
@@ -37,7 +37,7 @@
             </div>
 
             {# Bloc coordonnées propriétaire #}
-            <div class="col-4 offset-1 car-detail-info">
+            <div class="col-10 col-md-4 offset-md-1 car-detail-info p-3">
                 <p><span>Coordonnées du propriétaire</span></p>
                 <p>Nom : {{ vehicle.owner.lastname }}</p>
                 <p>Prénom : {{ vehicle.owner.firstname }}</p>

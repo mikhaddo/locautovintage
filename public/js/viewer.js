@@ -9,6 +9,7 @@ $('.viewer-event').click(function(){
         </div>
     `);
 
+    // Désactivation du scroll de la page
     $('body').css('overflow', 'hidden');
 
     // Ecouteur d'évènement click sur le "X"
@@ -17,6 +18,7 @@ $('.viewer-event').click(function(){
         // Suppression de l'overlay (et tout ce qu'il contient)
         $('.overlay').remove();
 
+        // Réactivation du scroll de la page
         $('body').css('overflow', 'auto');
     });
 });

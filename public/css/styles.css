@@ -109,7 +109,7 @@ footer {
   color: white;
 }
 .backcolor{
-  background-color: #8f6630;
+  background-color: #bc8230;
 }
 form{
   margin-top: 50px;
@@ -129,7 +129,7 @@ input{
   width: 100%;
 }
 .contcolor{
-   background-color: #8f6630;
+   background-color: #bc8230;
   background-size: contain;
   height: 600px;
   width: auto;
@@ -175,7 +175,7 @@ input{
 }
 
 .backcolor {
-	background-color: #8f6630;
+	background-color: #bc8230;
 }
 
 form {
@@ -193,7 +193,7 @@ form {
 }
 
 .contcolor {
-	background-color: #8f6630;
+	background-color: #bc8230;
 	background-size: contain;
 	height: 600px;
 	width: auto;
@@ -237,7 +237,7 @@ form {
 
 /* Styles de l'overlay */
 .overlay{
-	position: absolute;
+	position: fixed;
 	z-index: 99;
 	background: rgba(0, 0, 0, 0.6);
 	top: 0;

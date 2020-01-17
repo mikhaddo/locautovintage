@@ -33,7 +33,7 @@ class VehicleFixtures extends Fixture implements DependentFixtureInterface
                 ->setBrand($faker->company)
                 ->setModel($faker->word)
                 // $faker->year
-                ->setYearProduced($faker->year('1995'))
+                ->setYearProduced('1978')
                 ->setEngineType($faker->randomDigit())
                 ->setEngineDisplacement($faker->randomNumber(2))
                 ->setEnginePower($faker->randomNumber(4))

@@ -40,7 +40,7 @@ class MainController extends AbstractController
         $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
 
         $vehicles = $vehicleRepository->findAll();
-        dump($vehicles);
+
         return $this->render('main/carList.html.twig', [
             'vehicles' => $vehicles
         ]);

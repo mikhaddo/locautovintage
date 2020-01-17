@@ -19,10 +19,11 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'Accépter nos conditions d\'utilisation.',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'Merci d\'accépter nos conditions.',
+                        'message' => 'Merci d\'accepter nos conditions.',
                     ]),
                 ],
             ])

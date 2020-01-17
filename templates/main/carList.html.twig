@@ -22,12 +22,12 @@
         {% if vehicles is not empty %}
         <div class="d-flex flex-wrap justify-content-center">
             {% for vehicle in vehicles %}
-                <a href="#" class="thumbnail mw-100 mb-2 m-sm-3">
-                    <div class="mw-100" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');height:250px; width:450px; background-size: cover; background-position: center center;">
+                <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="thumbnail mw-100 mb-2 m-sm-3">
+                   <div class="mw-100" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');height:250px; width:450px; background-size: cover; background-position: center center;">
                     </div>
                     <p class="carlabel">{{ vehicle.brand }} {{ vehicle.model }}</p>
                 </a>
-                {# <a href="{{ path('vehicle_view', { id: vehicle.id }) }}" class="list-group-item list-group-item-action">{{ vehicle.pictures }}</a> #}
+                {# <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="list-group-item list-group-item-action">{{ vehicle.pictures }}</a> #}
             {% endfor %}
         </div>
         {% else %}

@@ -21,7 +21,7 @@
     </div>
     <header class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
-            <a href="{{ path('home') }}#home"><img src="{{ asset('images/icon_new.jpg') }}" class="icon" alt="icon"></a>
+            <a href="{{ path('home') }}#home" id="iconcolor"><img src="{{ asset('images/icon_new.jpg') }}" class="icon mb-2" alt="icon"></a>
             <a class="navbar-brand active ml-5" href="{{ path('home') }}#home">Accueil</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -29,15 +29,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto"></ul>
                 <ul class="navbar-nav pr-5">
-                    <li class="nav-item active"><a class="nav-link" href="#">La Collection</a></li>
+                    <li class="nav-item {% if route == 'car_list' %} active {% endif %}"><a class="nav-link" href="{{ path('car_list') }}">La Collection</a></li>
                     {% if app.user %}
-                    <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link" href="{{ path('profil') }}">Profil</a></li>
-                    <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link" href="{{ path('app_logout') }}#logout">Déconnexion</a></li>
+                    <li class="nav-item {% if route == 'profil' %} active {% endif %}"><a class="nav-link" href="{{ path('profil') }}">Profil</a></li>
+                    <li class="nav-item {% if route == 'app_logout' %} active {% endif %}"><a class="nav-link" href="{{ path('app_logout') }}#logout">Déconnexion</a></li>
                     {% else %}
-                    <li class="nav-item {% if route == 'main' %} active {% endif %}"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
+                    <li class="nav-item {% if route == 'app_login' %} active {% endif %}"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
+                    <li class="nav-item {% if route == 'app_register' %} active {% endif %}"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
                     {% endif %}
-                    <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link" href="{{ path('contact') }}">Contact</a></li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
@@ -61,7 +61,7 @@
                 </span>
             </div>
             <div class="col-md-4 mt-3 socialicons">
-                <span><a href="#" target="_blank" title="'Conditions Générales d'Utilisation' (Nouvelle fenêtre)">C.G.U.</a></span><br><br>
+                <span><a href="{{ path('conditions_utilisation') }}" class="cgucolor" target="_blank" title="'Conditions Générales d'Utilisation' (Nouvelle fenêtre)">C.G.U.</a></span><br><br>
                 <span><a href="https://www.facebook.com/" target="_blank" title="Nouvelle fenêtre" class="fa fa-facebook"></a></span>
                 <span><a href="https://twitter.com/" target="_blank" title="Nouvelle fenêtre" class="fa fa-twitter"></a></span></li></span>
                 <span><a href="https://www.instagram.com/" target="_blank" title="Nouvelle fenêtre" class="fa fa-instagram"></a></span><br>

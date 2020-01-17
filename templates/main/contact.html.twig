@@ -1,9 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title %}twiggy{% endblock %}
+{% block title %}Contact{% endblock %}
 
 {% block body %}
+<div class="row backcolor">
+    <div class="col-4 offset-4">
+        <h2 class="h3 mb-3 font-weight-normal margtop">Contactez-nous</h2>
+        {{ form_start(form) }}
+        {{ form_row(form.field_name) }}
+        {{ form_row(form.content) }}
+       
+        {# Affichage du captcha avec la clé publique récupérée directement grâce à la passerelle faite dans twig.yaml #}
+        <div class="form-group">
+            <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
+        </div>
+        {{ form_end( form )}}
+    </div>
+</div>
+{% endblock %}
 
-    <h1>contact</h1>
-
+{% block stylesheets %}
+    {# Insertion du fichier JS dans le block stylesheets, ce n'est pas une erreur, la documentation de Recaptcha préconise en effet d'intégrer ce fichier JS dans le head #}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}

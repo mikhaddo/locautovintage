@@ -5,18 +5,24 @@
 {% block body %}
 <div class="row backcolor">
     <div class="col-6 img_home image_home_register"></div>
-    <div class="col-4 form">
-        <form class="offset-6">
-    <h2 class="h3 mb-3">Inscription</h2>
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button class="btn btn-warning mt-2">S'inscrire</button>
-    {{ form_end(registrationForm) }}
-</form>
-    </div>
+        <div class="col-4 form">
+            <form class="offset-6">
+                <h2 class="h3 mb-3 margtop">Inscription</h2>
+                    {{ form_start(registrationForm) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.plainPassword) }}
+                        {{ form_row(registrationForm.agreeTerms) }}
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
+                        </div>
+                        <button class="btn btn-warning mt-2">S'inscrire</button>
+                    {{ form_end(registrationForm) }}
+            </form>
+        </div>
 </div>
 
+{% endblock %}
+{% block stylesheets %}
+    {# Insertion du fichier JS dans le block stylesheets, ce n'est pas une erreur, la documentation de Recaptcha préconise en effet d'intégrer ce fichier JS dans le head #}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}

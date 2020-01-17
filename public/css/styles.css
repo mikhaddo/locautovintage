@@ -7,19 +7,19 @@ body {
   color:gold;
 }
 a:hover{
-  /*background-color: #c08b3a;*/
-  color: black;
+    /*background-color: #c08b3a;*/
+    color: black;
 }
 a:link{
   text-decoration: none;
   color: #c08b3a;
 }
 #iconcolor:hover{
-  background-color: transparent;
-  -webkit-transform: rotate(360deg);
-  transform: rotate(360deg);
-  -webkit-transition: -webkit-transform .8s ease-in-out;
-  transition:         transform .8s ease-in-out;
+    background-color: transparent;
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: -webkit-transform .8s ease-in-out;
+    transition:         transform .8s ease-in-out;
 }
 h1{
   font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
@@ -27,92 +27,92 @@ h1{
   background-color: #000;
 }
 h2{
-  padding-top: 100px;
-  font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
-  color: black;
-  text-align: center;
+    padding-top: 100px;
+    font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
+    color: black;
+	  text-align: center;
 }
 .img_home {
-background-image: url(../images/home_new.jpg);
-background-repeat: no-repeat;
-height: 600px;
-background-size: cover;
-background-position: center center;
+	background-image: url(../images/home_new.jpg);
+	background-repeat: no-repeat;
+	height: 600px;
+	background-size: cover;
+	background-position: center center;
 }
 .image_home_register {
 
-background-position: right;
+	background-position: right;
 }
 .icon{
-  background-image: url(../images/icon_new.jpg);
-  background-repeat: no-repeat;
-  border-radius: 50%;
+    background-image: url(../images/icon_new.jpg);
+    background-repeat: no-repeat;
+    border-radius: 50%;
 
 }
 .hometext {
-height: 500px;
-overflow-y: scroll;
-overflow: auto;
-overflow-x: hidden;
-width: 10px;
+	height: 500px;
+	overflow-y: scroll;
+	overflow: auto;
+	overflow-x: hidden;
+	width: 10px;
 }
 .navbar-collapse {
-  float: right;
+    float: right;
 }
 .description{
-  text-align: center;
+    text-align: center;
 }
 ul {
-list-style: none;
+	list-style: none;
 }
 footer {
-padding-top: 0;
-position: relative;
-margin-top: 0;
-margin: 0;
+	padding-top: 0;
+	position: relative;
+	margin-top: 0;
+	margin: 0;
 }
 .textcolor {
-color: #c08b3a;
+	color: #c08b3a;
 }
 .cgucolor {
-color: white;
+	color: white;
 }
 .socialicons {
-text-align: center;
+	text-align: center;
 }
 .fa{
-  font-size: 20px;
-  width: 50px;
-  text-align: center;
-  text-decoration: none;
+    font-size: 20px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
 }
 .fa-facebook {
-  background: #3B5998;
-  color: white;
+    background: #3B5998;
+    color: white;
 }
 .fa-twitter {
-  background: #55ACEE;
-  color: white;
+    background: #55ACEE;
+    color: white;
 }
 .fa-instagram {
-  background: #88127e;
-  color: white;
+    background: #88127e;
+    color: white;
 }
 #main-navbar .nav-item.active>.nav-link{
   color: #d3b842;
 }
 .shadow-text{
-background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   /*text-shadow: 2px 4px 4px #fff;*/
 }
 .bottext{
   color: white;
 }
 .backcolor{
-background-color: #8f6630;
+  background-color: #8f6630;
 }
 form{
-margin-top: 50px;
+  margin-top: 50px;
 }
 .form-control{
 border: 0;
@@ -122,6 +122,9 @@ border-radius: 0;
 input{
 /*margin-left: 25%;*/
 }
+ input{
+  /*margin-left: 25%;*/
+ }
 .contwidth{
   width: 100%;
 }
@@ -177,28 +180,28 @@ input{
 
 /* Page carList*/
 .carlabel {
-color: black;
-text-transform: uppercase;
+	color: black;
+	text-transform: uppercase;
 }
 /* Page carDetail*/
 .car-detail-gen-box {
-color: black;
+	color: black;
 }
 
 .car-detail-gen-box .car-detail-tech span {
-font-weight: bold;
-text-transform: uppercase;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .car-detail-gen-box .car-detail-info span {
-font-weight: bold;
-text-transform: uppercase;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .car-detail-tech {
-border: 2px solid #d3b842;
+	border: 2px solid #d3b842;
 }
 
 .car-detail-info {
-border: 2px solid #d3b842;
+	border: 2px solid #d3b842;
 }

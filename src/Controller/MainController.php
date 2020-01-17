@@ -8,6 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\User;
 use App\Entity\Vehicle;
 
+// throw errors (phase prod)
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 class MainController extends AbstractController
 {
     /**

@@ -6,13 +6,6 @@
 {# ne gère pas les images, donc pour le moment : CDN #}
 {# <link rel="stylesheet" href="{{ asset('css/leaflet.css') }}"> #}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
- <style>
-    #map{
-        width:80%;
-        height:700px;
-        margin:auto;
-    }
-</style>
 {% endblock %}
 
 {% block body %}
@@ -43,7 +36,9 @@
     </div>
 </div>
 
-<div id="map"></div>
+<div class="row backcolor">
+    <div id="map" class="my-4 mx-auto"></div>
+</div>
 
 {% endblock %}
 

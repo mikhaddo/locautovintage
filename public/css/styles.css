@@ -149,17 +149,18 @@ form {
 
 
 
-/**********************/
-/****** Ajout JP ******/
-/**********************/
+/********************************************/
+/***************** Ajout JP *****************/
+/********************************************/
 
-/* Page carList*/
+/* DEBUT Page carList*/
 .carlabel {
 	color: black;
 	text-transform: uppercase;
 }
+/* FIN Page carList*/
 
-/* Page carDetail*/
+/* DEBUT Page carDetail*/
 .car-detail-gen-box {
 	color: black;
 }
@@ -181,3 +182,32 @@ form {
 .car-detail-info {
 	border: 2px solid #d3b842;
 }
+
+/* Styles de l'overlay */
+.overlay{
+	position: absolute;
+	z-index: 99;
+	background: rgba(0, 0, 0, 0.6);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.overlay>img{
+	width: 50%;
+}
+
+/* Styles du bouton de fermeture de l'overlay */
+.overlay>.close-button{
+	position: absolute;
+    top: 20px;
+    right: 200px;
+    color: #CECECE;
+    font-size: 3rem;
+    cursor: pointer;
+}
+/* FIN Page carDetail*/

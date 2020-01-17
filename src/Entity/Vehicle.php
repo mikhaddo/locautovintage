@@ -56,15 +56,16 @@ class Vehicle
      */
     private $max_seats;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $pictures = [];
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="vehicles")
      */
     private $owner;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $pictures = [];
 
     public function getId(): ?int
     {
@@ -167,18 +168,6 @@ class Vehicle
         return $this;
     }
 
-    public function getPictures(): ?array
-    {
-        return $this->pictures;
-    }
-
-    public function setPictures(array $pictures): self
-    {
-        $this->pictures = $pictures;
-
-        return $this;
-    }
-
     public function getOwner(): ?User
     {
         return $this->owner;
@@ -187,6 +176,18 @@ class Vehicle
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getPictures(): ?array
+    {
+        return $this->pictures;
+    }
+
+    public function setPictures(array $pictures): self
+    {
+        $this->pictures = $pictures;
 
         return $this;
     }

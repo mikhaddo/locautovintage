@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}La collection{% endblock %}
+
+{% block body %}
+
+{#Intégration de la collection#}
+<div class="row backcolor">
+    <div class="col-md-12 text-center">
+        <h2>La Collection</h2>
+    </div>
+</div>
+
+<div class="row backcolor">
+    <div class="col-12 col-md-10 offset-md-1 mt-5">
+        {% if vehicles is not empty %}
+        <div class="d-flex flex-wrap justify-content-center">
+            {% for vehicle in vehicles %}
+                <a href="#" class="thumbnail mw-100 mb-2 m-sm-3">
+                    <div class="mw-100" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');height:250px; width:450px; background-size: cover; background-position: center center;">
+                    </div>
+                    <p class="carlabel">{{ vehicle.brand }} {{ vehicle.model }}</p>
+                </a>
+                {# <a href="{{ path('vehicle_view', { id: vehicle.id }) }}" class="list-group-item list-group-item-action">{{ vehicle.pictures }}</a> #}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-danger">Aucune voiture disponible dans la collection.</div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

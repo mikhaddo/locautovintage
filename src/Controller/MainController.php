@@ -4,10 +4,14 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Form\ContactType;
 use App\Recaptcha\RecaptchaValidator; // Importation de notre service de validation du captcha
 use Symfony\Component\Form\FormError; // Importation de la classe permettant de créer des erreurs dans les formulaires
+use App\Entity\User;
+use App\Entity\Vehicle;
+use App\Form\VehicleType;
 
 class MainController extends AbstractController
 {
@@ -22,13 +26,20 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/autos-disponibles", name="car_map")
+     * @Route("/autos-disponibles/", name="car_list")
      * en cas de modification du name, penser à /locautovintage/templates/base.html.twig
      */
-    public function carMap()
+    public function carList()
     {
-        return $this->render('main/carMap.html.twig');
+        $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
+
+        $vehicles = $vehicleRepository->findAll();
+
+        return $this->render('main/carList.html.twig', [
+            'vehicles' => $vehicles
+        ]);
     }
+
 
     /**
      * @Route("/test-json/", name="test_json")
@@ -92,12 +103,37 @@ class MainController extends AbstractController
 
       return $this->render('main/admin.html.twig');
  }
- /**
-     * @Route("/conditions-generales-dutilisation", name="conditions_utilisation")
-     */
-    public function conditions()
+/**
+* @Route("/conditions-generales-dutilisation", name="conditions_utilisation")
+*/
+public function conditions()
     {
         return $this->render('main/conditions.html.twig');
+    }
+/**
+* @Route("/formulaire-vehicule", name="form_vehicle")
+*
+*/
+public function createVehicle(Request $request){
+
+        $newVehicle = new Vehicle();
+        $formVehicle = $this->createForm(VehicleType::class, $newVehicle);
+        $formVehicle->handleRequest($request);
+
+        if($formVehicle->isSubmitted() && $formVehicle->isValid()){
+
+            $em = $this->getDoctrine()->getmanager();
+            $em->persist($newVehicle);
+            $em->flush();
+            //Création d'un message flash de succès
+            $this->addFlash('success', 'Votre véhicule a bien été ajouté.');
+
+            return $this->redirectToRoute('profil');
+        }
+        return $this->render('main/vehicle.html.twig', [
+
+            'formVehicle' => $formVehicle->createView()
+        ]);
     }
 // do not tuch at dat '{'
 }

@@ -15,6 +15,11 @@ use App\Entity\User;
 use \Swift_Message; //Importation des deux classes necessaires pour envoyer un email
 use \Swift_Mailer;
 
+// throw errors (phase prod)
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 class MainController extends AbstractController
 {
     /**
@@ -30,14 +35,14 @@ class MainController extends AbstractController
     /**
      * @Route("/autos-disponibles/", name="car_list")
      * en cas de modification du name, penser à /locautovintage/templates/base.html.twig
-     * Affiche la 1ere photo de chaque voiture disponible dans la collection
+     * JPG - Affiche la 1ere photo de chaque voiture disponible dans la collection
      */
     public function carList()
     {
         $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
 
         $vehicles = $vehicleRepository->findAll();
-        dump($vehicles);
+
         return $this->render('main/carList.html.twig', [
             'vehicles' => $vehicles
         ]);
@@ -46,16 +51,14 @@ class MainController extends AbstractController
     /**
      * @Route("/auto-details/{id}", name="car_detail")
      * en cas de modification du name, penser à /locautovintage/templates/base.html.twig
-     * Affiche la fiche technique de la voiture sélectionnée
+     * JPG - Affiche la fiche technique de la voiture sélectionnée sur la page 'autos-disponibles'
      */
     public function carDetail(Vehicle $vehicle)
     {
-
         return $this->render('main/carDetail.html.twig', [
             'vehicle' => $vehicle
         ]);
     }
-
 
     /**
      * @Route("/test-json/", name="test_json")

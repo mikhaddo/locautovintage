@@ -6,13 +6,6 @@
 {# ne gère pas les images, donc pour le moment : CDN #}
 {# <link rel="stylesheet" href="{{ asset('css/leaflet.css') }}"> #}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
- <style>
-    #map{
-        width:80%;
-        height:700px;
-       
-    }
-</style>
 {% endblock %}
 
 {% block body %}
@@ -30,7 +23,7 @@
         <div class="d-flex flex-wrap justify-content-center">
             {% for vehicle in vehicles %}
                 <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="thumbnail mw-100 mb-2 m-sm-3">
-                   <div class="mw-100" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');height:250px; width:450px; background-size: cover; background-position: center center;">
+                    <div class="mw-100 img-thumbnail" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');height:250px; width:450px; background-size: cover; background-position: center center;">
                     </div>
                     <p class="carlabel">{{ vehicle.brand }} {{ vehicle.model }}</p>
                 </a>

@@ -1,18 +1,18 @@
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 .active>a{
-    color:gold;
+  color:gold;
 }
 a:hover{
     /*background-color: #c08b3a;*/
     color: black;
 }
 a:link{
-    text-decoration: none;
-    color: #c08b3a;
+  text-decoration: none;
+  color: #c08b3a;
 }
 #iconcolor:hover{
     background-color: transparent;
@@ -22,9 +22,9 @@ a:link{
     transition:         transform .8s ease-in-out;
 }
 h1{
-    font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
-    color: #c08b3a;
-    background-color: #000;
+  font-family: 'Dancing Script', cursive, Arial, Helvetica, sans-serif;
+  color: #c08b3a;
+  background-color: #000;
 }
 h2{
     padding-top: 100px;
@@ -99,51 +99,120 @@ footer {
     color: white;
 }
 #main-navbar .nav-item.active>.nav-link{
-    color: #d3b842;
+  color: #d3b842;
 }
 .shadow-text{
   background-color: rgba(255, 255, 255, 0.5);
-    /*text-shadow: 2px 4px 4px #fff;*/
-  }
+  /*text-shadow: 2px 4px 4px #fff;*/
+}
 .bottext{
-    color: white;
+  color: white;
 }
 .backcolor{
-  background-color: #8f6630;
+  background-color: #bc8230;
 }
 form{
   margin-top: 50px;
 }
 .form-control{
-  border: 0;
-  border-bottom: 1.5px solid rgb(163, 163, 163, .3);
-  border-radius: 0;
+border: 0;
+border-bottom: 1.5px solid rgb(163, 163, 163, .3);
+border-radius: 0;
+}
+input{
+/*margin-left: 25%;*/
 }
  input{
   /*margin-left: 25%;*/
  }
 .contwidth{
-    width: 100%;
+  width: 100%;
 }
- .contcolor{
-     background-color: #8f6630;
-    background-size: contain;
-    height: 600px;
-    width: auto;
+.contcolor{
+   background-color: #bc8230;
+  background-size: contain;
+  height: 600px;
+  width: auto;
 }
 .carprof{
-    color: black;
+  color: black;
 }
-/**********************/
-/****** Ajout JP ******/
-/**********************/
 
-/* Page carList*/
+/*************************/
+/****** Ajout Titus ******/
+/*************************/
+#map{
+  width:80%;
+  height:700px;
+}
+.img_403 {
+  background-image: url(../images/errors/403.jpg);
+  background-repeat: no-repeat;
+  height: 600px;
+  background-size: cover;
+  background-position: center center;
+}
+.img_404 {
+  background-image: url(../images/errors/404.jpg);
+  background-repeat: no-repeat;
+  height: 600px;
+  background-size: cover;
+  background-position: center center;
+}
+.img_418 {
+  background-image: url(../images/errors/418.jpg);
+  background-repeat: no-repeat;
+  height: 1280px;
+  background-size: cover;
+  background-position: center center;
+}
+.img_500 {
+  background-image: url(../images/errors/500.jpg);
+  background-repeat: no-repeat;
+  height: 600px;
+  background-size: cover;
+  background-position: center center;
+}
+
+.backcolor {
+	background-color: #bc8230;
+}
+
+form {
+	margin-top: 50px;
+}
+
+.form-control {
+	border: 0;
+	border-bottom: 1.5px solid rgb(163, 163, 163, .3);
+	border-radius: 0;
+}
+
+.contwidth {
+	width: 100%;
+}
+
+.contcolor {
+	background-color: #bc8230;
+	background-size: contain;
+	height: 600px;
+	width: auto;
+}
+
+
+
+/********************************************/
+/***************** Ajout JP *****************/
+/********************************************/
+
+/* DEBUT Page carList*/
 .carlabel {
 	color: black;
 	text-transform: uppercase;
 }
-/* Page carDetail*/
+/* FIN Page carList*/
+
+/* DEBUT Page carDetail*/
 .car-detail-gen-box {
 	color: black;
 }
@@ -165,3 +234,32 @@ form{
 .car-detail-info {
 	border: 2px solid #d3b842;
 }
+
+/* Styles de l'overlay */
+.overlay{
+	position: fixed;
+	z-index: 99;
+	background: rgba(0, 0, 0, 0.6);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.overlay>img{
+	width: 50%;
+}
+
+/* Styles du bouton de fermeture de l'overlay */
+.overlay>.close-button{
+	position: absolute;
+    top: 20px;
+    right: 200px;
+    color: #CECECE;
+    font-size: 3rem;
+    cursor: pointer;
+}
+/* FIN Page carDetail*/

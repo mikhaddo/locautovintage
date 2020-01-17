@@ -6,18 +6,21 @@
 <div class="row backcolor">
     <div class="col-6 img_home image_home_register"></div>
         <div class="col-4 form">
-            <form class="offset-6">
+            <div class="offset-6">
                 <h2 class="h3 mb-3 margtop">Inscription</h2>
                     {{ form_start(registrationForm) }}
+
+                        {{ form_errors(registrationForm) }}
+
                         {{ form_row(registrationForm.email) }}
                         {{ form_row(registrationForm.plainPassword) }}
                         {{ form_row(registrationForm.agreeTerms) }}
                         <div class="form-group">
                             <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
                         </div>
-                        <button class="btn btn-warning mt-2">S'inscrire</button>
+                        {{ form_row(registrationForm.save) }}
                     {{ form_end(registrationForm) }}
-            </form>
+            </div>
         </div>
 </div>
 

@@ -19,7 +19,7 @@ class RecaptchaValidator{
     /**
      * Constructeur de la classe qui servira à demander le service ParameterBagInterface à Symfony et à hydrater $params avec ce dernier
      */
-    public function __contruct(ParameterBagInterface $params){
+    public function __construct(ParameterBagInterface $params){
         $this->params = $params;
     }
 

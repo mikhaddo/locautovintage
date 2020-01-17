@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use App\Form\ContactType;
-use App\Recaptcha\RecaptchaValidator; // Importation de notre service de validation du captcha
 use Symfony\Component\Form\FormError; // Importation de la classe permettant de créer des erreurs dans les formulaires
-use App\Entity\User;
-use App\Entity\Vehicle;
+use App\Recaptcha\RecaptchaValidator; // Importation de notre service de validation du captcha
 use App\Form\VehicleType;
+use App\Form\ContactType;
+use App\Entity\Vehicle;
+use App\Entity\User;
+use \Swift_Message; //Importation des deux classes necessaires pour envoyer un email
+use \Swift_Mailer;
 
 class MainController extends AbstractController
 {
@@ -86,25 +88,50 @@ class MainController extends AbstractController
     /**
      * @Route("/contactez-nous", name="contact")
      */
-    public function contact()
+    public function contact(Request $request, RecaptchaValidator $recaptcha, Swift_Mailer $mailer)
     {
         $form = $this->createForm(ContactType::class);
+
+        $form->handleRequest($request);
+
         if($form->isSubmitted()){
             // Si le captcha n'est pas valide, on crée une nouvelle erreur dans le formulaire (ce qui l'empêchera de créer l'article et affichera l'erreur)
             // $request->request->get('g-recaptcha-response')  -----> code envoyé par le captcha dont la méthode verify() a besoin
             // $request->server->get('REMOTE_ADDR') -----> Adresse IP de l'utilisateur dont la méthode verify() a besoin
-        if(!$recaptcha->verify( $request->request->get('g-recaptcha-response'), $request->server->get('REMOTE_ADDR') )){
+            if(!$recaptcha->verify( $request->request->get('g-recaptcha-response'), $request->server->get('REMOTE_ADDR') )){
 
-    // Ajout d'une nouvelle erreur manuellement dans le formulaire
-    $form->addError(new FormError('Le Captcha doit être validé !'));
-}
-        if($form->isValid()){
-            // Création d'un flash message de type "success"
-            $this->addFlash('success', 'Votre message a bien été envoyé!');
-            // Redirection de l'utilisateur sur la route "home" (la page d'accueil)
-            return $this->redirectToRoute('home');
+                // Ajout d'une nouvelle erreur manuellement dans le formulaire
+                $form->addError(new FormError('Le Captcha doit être validé !'));
+            }
+            if($form->isValid()){
+                // Le mailer est récupéré automatiquement en paramètre par autowiring dans $mailer
+
+                // Création du mail
+                $message = (new Swift_Message('Sujet email'))
+                ->setFrom('expediteur@example.com')     // Expediteur
+                ->setTo('destinataire@example.com')     // destinataire
+                ->setBody(
+                    $this->renderView(
+                    'test.html.twig'     // Version HTML du mail (une vue twig)
+                ),
+                'text/html'
+                )
+                ->addPart(
+                    $this->renderView(
+                    'test.txt.twig'      // Version textuelle du mail (une vue twig également)
+                ),
+                'text/plain'
+                )
+                ;
+
+                // Envoi du mail
+                $mailer->send($message);
+                // Création d'un flash message de type "success"
+                $this->addFlash('success', 'Votre message a bien été envoyé!');
+                // Redirection de l'utilisateur sur la route "home" (la page d'accueil)
+                return $this->redirectToRoute('home');
+            }
         }
-    }
         return $this->render('main/contact.html.twig', [
             'form' =>$form->createView()
         ]);

@@ -6,9 +6,10 @@ use App\Entity\Vehicle;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-//use App\Entity\User;
+use App\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType; // Importation du type bouton de validation
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class VehicleType extends AbstractType
 {
@@ -23,10 +24,11 @@ class VehicleType extends AbstractType
             ->add('engine_power')
             ->add('max_speed')
             ->add('max_seats')
-            //->add('pictures')
-        //  ->add('owner')
+            ->add('pictures',FileType::class, [
+                'data_class'    => null,
+                'label'         => 'Image'])
             ->add('save', SubmitType::class, [ // Ajout d'un champ de type bouton de validation
-            'label' => 'Envoyer'    // Texte du bouton
+                'label' => 'Envoyer'   // Texte du bouton
         ])
         ;
     }

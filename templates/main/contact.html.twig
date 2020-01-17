@@ -7,13 +7,19 @@
     <div class="col-4 offset-4">
         <h2 class="h3 mb-3 font-weight-normal margtop">Contactez-nous</h2>
         {{ form_start(form) }}
+
+        {{ form_errors(form) }}
+
+
         {{ form_row(form.field_name) }}
         {{ form_row(form.content) }}
-       
+
         {# Affichage du captcha avec la clé publique récupérée directement grâce à la passerelle faite dans twig.yaml #}
         <div class="form-group">
             <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
         </div>
+        {{ form_row(form.save) }}
+
         {{ form_end( form )}}
     </div>
 </div>

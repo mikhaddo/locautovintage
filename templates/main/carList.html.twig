@@ -10,7 +10,7 @@
     #map{
         width:80%;
         height:700px;
-        margin:auto;
+       
     }
 </style>
 {% endblock %}
@@ -43,8 +43,12 @@
     </div>
 </div>
 
-<div id="map"></div>
-
+<div class="row backcolor">
+    <div class="col-2 offset-5">
+    <h2 class=" pt-0 m-0 backcolor">Localisation</h2>
+</div>
+    <div class="my-4 mx-auto" id="map"></div>
+</div>
 {% endblock %}
 
 {% block javascripts %}

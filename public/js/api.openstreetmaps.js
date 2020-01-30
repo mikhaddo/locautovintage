@@ -1,12 +1,9 @@
- 
 /**
  * on déclare ça ici pour y avoir le droit partout, et pas seulement dans la condition
  */
 var map = null;
 var lat = 46.952;
 var lng = 4.28109;
-var tempMessages = [ 'alo', 'ki', 'koi'];
-//var cities = ['epinac','auxy','tintry']
 
 /**
  * attente du chargement complet du DOM avant de lancer les requêttes,
@@ -23,6 +20,7 @@ window.onload = () => {
      * création et placement de la roue de l'attente,
      * en javaScript natif. un peu plus long à écrire que jQuery,
      * mais on a le contrôle total et pas dépendant d'un fichier de plusieurs kilomètres.
+     * on est aussi indépendant niveau CSS, pas besoin d'en rajouter dans 'css/styles.css' !
      */
     let documentMapSelector = document.querySelector('#map');
 
@@ -35,8 +33,8 @@ window.onload = () => {
 
     let imgProcess = document.createElement('img');
     // marche pô "{{ asset('images/ajax-loader.svg') }}"
-    // écrit en absolut, pas forcément le plus cool
-    imgProcess.src = "/images/ajax-loader.svg";
+    // écrit en chemin relatif par rapport au .js
+    imgProcess.src = "../images/ajax-loader.svg";
     imgProcess.style.position = 'absolute';
     imgProcess.style.top = '50%'
     imgProcess.style.left = '50%'
@@ -92,6 +90,12 @@ window.onload = () => {
         })
     }
 
+    /**
+     * 'roue du destin'
+     * la commande pour effacer la petite image qui fait patienter
+     * on est sensés l'envoyer au bon moment !
+     * ~ améliorations possibles : pourquoi c'est en asynchrone ?
+     */
     async function getRemoveDestin(){
         return new Promise(function(resolve, reject){
             resolve(documentMapSelector.removeChild(documentMapSelector.firstElementChild));
@@ -136,22 +140,26 @@ window.onload = () => {
          * // .bindPopup(tempMessages[i++])
          * ~ l'utilité de 'this.' ?
          */
+        var returnVehiclesAdress = [];
+        var markersLayers = L.markerClusterGroup();
         for(i=0;i<markers.returnVehicles.length;i++){
 
             // what time is it ? it is not workin'o'clock
-            var varReturnVehicles = markers.returnVehicles[i];
+            //var varReturnVehicles = markers.returnVehicles[i];
 
-            getAjaxGeo(markers.returnVehicles[i]['city']).then((response) => {
+            getAjaxGeo(markers.returnVehicles[i]['city']).then((responseText) => {
 
-                    console.info('getAjaxGeo :: ' + response.features[0].geometry.coordinates);
-                    L.marker([response.features[0].geometry.coordinates[1],response.features[0].geometry.coordinates[0]])
-                        .addTo(map)
+                    console.info('getAjaxGeo :: ' + responseText.features[0].geometry.coordinates);
+                    var varMarker = L.marker([responseText.features[0].geometry.coordinates[1],responseText.features[0].geometry.coordinates[0]])
+                        //.addTo(map)
                         // le bind poppup doit afficher l'image récupérée depuis la database
                         // en tout cas on ne peut pas rappeller son objet ci-dessous
                         // markers a disparu, maintenant c'est response ou alo
 
-                        .bindPopup(response.features[0].properties.display_name + '<br>Propriétaire du véhicule :: <br>' + varReturnVehicles.firstname )
+                        .bindPopup(responseText.features[0].properties.display_name + '<br>Propriétaire du véhicule :: <br>' + returnVehiclesAdress.firstname )
                     ;
+                markersLayers.addLayer(varMarkers)
+                returnVehiclesAdress.push(varMarker);
 
             }).catch(error => {
                 console.error('Error \'getAjaxGeo\' ! possibilité mauvais nom de ville.');
@@ -165,6 +173,9 @@ window.onload = () => {
     }).then(() => {
         // supression de la roue du destin, même si c'est pas au bon endroit !
         getRemoveDestin();
+        var groupMarkers = new L.featureGroup(returnVehiclesAdress);
+        carte.fitBounds(groupMarkers.getBounds().pad(0.5));
+        carte.addLayer(varMarkers);
     });
 
 // EOF (End Of File, fin de la de la fonction principale englobante.)

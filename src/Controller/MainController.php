@@ -239,7 +239,7 @@ public function createVehicle(Request $request){
                 // dump($arrayFilename);
 
                 // sauvegarde ce nom de fichier dans le !TABLEAU! pour futur transfert en base de donnée
-                // $newVehicle->setPictures([$safeFilename]);
+                $newVehicle->setPictures([$safeFilename]);
 
             }
 
@@ -250,7 +250,7 @@ public function createVehicle(Request $request){
             //Création d'un message flash de succès
             $this->addFlash('success', 'Votre véhicule a bien été ajouté.');
 
-            // return $this->redirectToRoute('profil');
+            return $this->redirectToRoute('profil');
         }
         return $this->render('main/vehicle.html.twig', [
             'formVehicle' => $formVehicle->createView()

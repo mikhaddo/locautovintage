@@ -222,11 +222,14 @@ public function createVehicle(Request $request){
                     1 // first one en dur
                 ;
 
+                // supprime les caractères spéciaux dans le nom de fichier, et en base de donnée
+                $safeFilename = preg_replace("/[^A-Za-z0-9_-]/", '', $newFilename);
+
                 // dépace ce fichier fraichement renomé au bon endroit
                 try {
                     $pictureFile->move(
                         $this->getParameter('pictures_directory'),
-                        $newFilename
+                        $safeFilename
                     );
                 } catch (FileException $e) {
                 }
@@ -236,7 +239,7 @@ public function createVehicle(Request $request){
                 // dump($arrayFilename);
 
                 // sauvegarde ce nom de fichier dans le !TABLEAU! pour futur transfert en base de donnée
-                $newVehicle->setPictures([$newFilename]);
+                // $newVehicle->setPictures([$safeFilename]);
 
             }
 
@@ -247,7 +250,7 @@ public function createVehicle(Request $request){
             //Création d'un message flash de succès
             $this->addFlash('success', 'Votre véhicule a bien été ajouté.');
 
-            return $this->redirectToRoute('profil');
+            // return $this->redirectToRoute('profil');
         }
         return $this->render('main/vehicle.html.twig', [
             'formVehicle' => $formVehicle->createView()

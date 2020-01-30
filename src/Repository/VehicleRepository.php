@@ -28,7 +28,7 @@ class VehicleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('vehicle')
             ->andWhere('vehicle.owner = :user')
             ->setParameter('user', $user)
-            ->orderBy('vehicle.id', 'ASC')
+            ->orderBy('vehicle.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;

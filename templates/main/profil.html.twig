@@ -25,7 +25,12 @@
                 <div class="d-flex flex-wrap justify-content-center">
                     {% for vehicle in vehicles %}
                         <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="thumbnail mw-100 mb-2 m-sm-3">
-                            <div class="mw-100 img-thumbnail" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');height:250px; width:450px; background-size: cover; background-position: center center;">
+                            <div class="mw-100 img-thumbnail"
+                                {% if vehicle.pictures[0] is defined %}
+                                    style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');
+                                    height:250px; width:450px; background-size: cover; background-position: center center;"
+                                {% endif %}
+                            >
                             </div>
                             <p class="carlabel">{{ vehicle.brand }} {{ vehicle.model }}</p>
                         </a>

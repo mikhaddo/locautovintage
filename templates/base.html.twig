@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %} - locautovintage</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
@@ -12,8 +12,10 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body class="bg-dark d-flex flex-column h-100">
-    {# variable qui récupère les routes #}
+
+    {# variable qui récupère les routes acctuellement chargées #}
     {% set route = app.request.attributes.get('_route') %}
+
     <div class="container-fluid">
         <div class="row">
             <h1 class="col-md-12 text-center title pb-3 display-2">Loc' Auto Vintage</h1>
@@ -32,7 +34,8 @@
                     <li class="nav-item {% if route == 'car_list' %} active {% endif %}"><a class="nav-link" href="{{ path('car_list') }}">La Collection</a></li>
                     {% if app.user %}
                     <li class="nav-item {% if route == 'profil' %} active {% endif %}"><a class="nav-link" href="{{ path('profil') }}">Profil</a></li>
-                    <li class="nav-item {% if route == 'app_logout' %} active {% endif %}"><a class="nav-link" href="{{ path('app_logout') }}#logout">Déconnexion</a></li>
+                    <li class="nav-item {% if route == 'form_vehicle' %} active {% endif %}"><a class="nav-link" href="{{ path('form_vehicle') }}">Ajout véhicule</a></li>
+                    <li class="nav-item {% if route == 'app_logout' %} active {% endif %}"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
                     {% else %}
                     <li class="nav-item {% if route == 'app_login' %} active {% endif %}"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
                     <li class="nav-item {% if route == 'app_register' %} active {% endif %}"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>

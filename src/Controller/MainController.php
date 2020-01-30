@@ -15,10 +15,17 @@ use App\Entity\User;
 use \Swift_Message; //Importation des deux classes necessaires pour envoyer un email
 use \Swift_Mailer;
 
-// throw errors (phase prod)
+// T: téléversements
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+// T: throw errors (phase prod)
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+
+// JPG = Jean-Philippe
+// T = Thierry
+// B = brian
 
 class MainController extends AbstractController
 {
@@ -110,21 +117,22 @@ class MainController extends AbstractController
                 // Le mailer est récupéré automatiquement en paramètre par autowiring dans $mailer
 
                 // Création du mail
-                $message = (new Swift_Message('Sujet email'))
-                ->setFrom('expediteur@example.com')     // Expediteur
-                ->setTo('destinataire@example.com')     // destinataire
-                ->setBody(
-                    $this->renderView(
-                    'test.html.twig'     // Version HTML du mail (une vue twig)
-                ),
-                'text/html'
-                )
-                ->addPart(
-                    $this->renderView(
-                    'test.txt.twig'      // Version textuelle du mail (une vue twig également)
-                ),
-                'text/plain'
-                )
+                // T: indentation bon sang ! pas étonnant que ça fonctionne pas ensuite !
+                $message = (new Swift_Message('Contact email'))
+                    ->setFrom('locautovintage@noreply.com')     // Expediteur
+                    ->setTo('destinataire@example.com')     // destinataire
+                    ->setBody(
+                        $this->renderView(
+                                'email/email_inscription.html.twig'     // Version HTML du mail (une vue twig)
+                            ),
+                        'text/html'
+                    )
+                    ->addPart(
+                        $this->renderView(
+                                'email/email_inscription.txt.twig'      // Version textuelle du mail (un TXT/twig !)
+                            ),
+                        'text/plain'
+                    )
                 ;
 
                 // Envoi du mail
@@ -148,7 +156,13 @@ class MainController extends AbstractController
   {
       // Si la personne qui essaye de venir sur cette page n'est pas connectée, elle sera redirigée à la page de connexion par le firewall
 
-      return $this->render('main/profil.html.twig');
+      $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
+
+      $vehicles = $vehicleRepository->findAllByThisUser( $this->getUser() );
+      dump($vehicles);
+      return $this->render('main/profil.html.twig',[
+        'vehicles' => $vehicles
+    ]);
   }
 
  /**
@@ -170,7 +184,7 @@ public function conditions()
     }
 /**
 * @Route("/formulaire-vehicule", name="form_vehicle")
-*
+* @Security("is_granted('ROLE_USER')")
 */
 public function createVehicle(Request $request){
 
@@ -180,6 +194,53 @@ public function createVehicle(Request $request){
 
         if($formVehicle->isSubmitted() && $formVehicle->isValid()){
 
+            // ici pour ajouter un owner et gérer les images. on commence par hydrater l'owner
+            $newVehicle->setOwner( $this->getUser() );
+            // inutile. symfony fait le café tout seul. on peut éventuellement removeVehicle() par contre !
+            // dump($this->getUser()->addVehicle( $newVehicle ));
+
+            /**
+             * @var UploadedFile $pictureFile
+             * T : big part setPictures https://symfony.com/doc/current/controller/upload_file.html
+             * pas vraiment nécessaire cette ligne du haut je pense...
+             */
+            $pictureFile = $formVehicle->get('pictures')->getData();
+
+            // this condition is needed because the 'pictures' field is not required
+            // the picture is processed only when a file is uploaded
+            if ($pictureFile) {
+
+                $originalFilename = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                // JPG : 1 = ID propriétaire / bmw = brand / 2002 = model / 1 = n° de l'image de 1 à 5
+                // T : bon ça va finalement
+                $newFilename =
+                    $newVehicle->getOwner()->getId() .
+                    $newVehicle->getBrand() .
+                    $newVehicle->getModel() .
+                    '-' .
+                    1 // first one en dur
+                ;
+
+                // dépace ce fichier fraichement renomé au bon endroit
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+
+                // pour futur éventuelle optimisation
+                // $arrayFilename[] = $newFilename;
+                // dump($arrayFilename);
+
+                // sauvegarde ce nom de fichier dans le !TABLEAU! pour futur transfert en base de donnée
+                $newVehicle->setPictures([$newFilename]);
+
+            }
+
+            // envoie tout ça en database
             $em = $this->getDoctrine()->getmanager();
             $em->persist($newVehicle);
             $em->flush();
@@ -189,9 +250,9 @@ public function createVehicle(Request $request){
             return $this->redirectToRoute('profil');
         }
         return $this->render('main/vehicle.html.twig', [
-
             'formVehicle' => $formVehicle->createView()
         ]);
     }
+
 // do not tuch at dat '{'
 }

@@ -16,6 +16,25 @@
                 <li>Nom:      {{ app.user.lastname }}</li>
                 <li>E-mail:      {{ app.user.email }}</li>
                 <li>Téléphone:   {{ app.user.getPhoneNumber }}</li>
+                <li>Ville : {{ app.user.city }}</li>
+            </ul>
+        </div>
+        <div class="car-detail-tech">
+            <ul class="pt-2">
+                {% if vehicles is not empty %}
+                <div class="d-flex flex-wrap justify-content-center">
+                    {% for vehicle in vehicles %}
+                        <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="thumbnail mw-100 mb-2 m-sm-3">
+                            <div class="mw-100 img-thumbnail" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');height:250px; width:450px; background-size: cover; background-position: center center;">
+                            </div>
+                            <p class="carlabel">{{ vehicle.brand }} {{ vehicle.model }}</p>
+                        </a>
+                        {# <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="list-group-item list-group-item-action">{{ vehicle.pictures }}</a> #}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-danger">Aucune voiture disponible dans la collection.</div>
+                {% endif %}
             </ul>
         </div>
         <div class="col text-center">

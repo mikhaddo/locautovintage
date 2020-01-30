@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Vehicle;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -17,6 +18,20 @@ class VehicleRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Vehicle::class);
+    }
+
+    /**
+     * nouvelle méthode : récupère tous les véhicles de l'utilisateur en cours
+     */
+    public function findAllByThisUser(User $user) :array
+    {
+        return $this->createQueryBuilder('vehicle')
+            ->andWhere('vehicle.owner = :user')
+            ->setParameter('user', $user)
+            ->orderBy('vehicle.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     // /**

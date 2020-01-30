@@ -4,9 +4,15 @@
 {% block stylesheets %}{% endblock %}
 
 {% block body %}
+
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success col-12">{{ message }}</div>
+    {% endfor %}
+
     {#Intégration de l'image l'image#}
     <div class="row img_home">
-        <div class="col-3 offset-1 m-5 pt-2 pb-2 text-black rounded shadow-text hometext">Lorem ipsum dolor sit amet,<br> consectetur adipisicing elit. Inventore, maxime. Quibusdam nobis, distinctio harum aperiam tempora inventore, temporibus provident nisi totam laboriosam ab omnis itaque illo voluptatibus. Non, perspiciatis velit.
+        {# T: qui a mis un margin important en dur svp ? #}
+        <div class="col-10 col-sm-8 col-md-4 offset-0 offset-md-1 offset-sm-1 m-5 pt-2 pb-2 text-black rounded shadow-text hometext">Lorem ipsum dolor sit amet,<br> consectetur adipisicing elit. Inventore, maxime. Quibusdam nobis, distinctio harum aperiam tempora inventore, temporibus provident nisi totam laboriosam ab omnis itaque illo voluptatibus. Non, perspiciatis velit.
         Fuga ipsum quisquam non corrupti ex odio sapiente pariatur velit! Modi, expedita.<br><br>
         Sit delectus repudiandae, impedit autem rem dolor dignissimos maiores qui doloremque sequi suscipit tempora exercitationem necessitatibus pariatur totam.
         Neque at quisquam est deserunt assumenda suscipit maxime esse corporis tempore delectus voluptatibus expedita ab sed dicta a, quibusdam accusantium ratione veritatis dolorum harum?<br><br>

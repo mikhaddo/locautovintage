@@ -57,18 +57,6 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/auto-details/{id}", name="car_detail")
-     * en cas de modification du name, penser à /locautovintage/templates/base.html.twig
-     * JPG - Affiche la fiche technique de la voiture sélectionnée sur la page 'autos-disponibles'
-     */
-    public function carDetail(Vehicle $vehicle)
-    {
-        return $this->render('main/carDetail.html.twig', [
-            'vehicle' => $vehicle
-        ]);
-    }
-
-    /**
      * @Route("/test-json/", name="test_json")
      */
     public function testJson()
@@ -102,17 +90,13 @@ class MainController extends AbstractController
     public function contact(Request $request, RecaptchaValidator $recaptcha, Swift_Mailer $mailer)
     {
         $form = $this->createForm(ContactType::class);
-
         $form->handleRequest($request);
-
-
 
         if($form->isSubmitted()){
             // Si le captcha n'est pas valide, on crée une nouvelle erreur dans le formulaire (ce qui l'empêchera de créer l'article et affichera l'erreur)
             // $request->request->get('g-recaptcha-response')  -----> code envoyé par le captcha dont la méthode verify() a besoin
             // $request->server->get('REMOTE_ADDR') -----> Adresse IP de l'utilisateur dont la méthode verify() a besoin
             if(!$recaptcha->verify( $request->request->get('g-recaptcha-response'), $request->server->get('REMOTE_ADDR') )){
-
                 // Ajout d'une nouvelle erreur manuellement dans le formulaire
                 $form->addError(new FormError('Le Captcha doit être validé !'));
             }
@@ -147,8 +131,6 @@ class MainController extends AbstractController
                     ->setTo('contact@locauto.com')     // destinataire
                     ->setBody( $form->get('body')->getViewData() )
                 ;
-                dump($message);
-                dump($form->get('body'));
 
                 // Envoi du mail
                 $mailer->send($message);
@@ -156,7 +138,6 @@ class MainController extends AbstractController
                 // Création d'un flash message de type "success" && rafraichir
                 $this->addFlash('success', 'Merci, ' . $form->get('from')->getViewData()) . ' !';
                 $this->addFlash('success', 'Votre message \'' . $form->get('subject')->getViewData() . '\' a bien été envoyé!');
-
                 return $this->redirectToRoute('contact');
             }
         }

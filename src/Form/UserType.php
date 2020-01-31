@@ -30,6 +30,7 @@ class UserType extends AbstractType
     {
         $builder
             // ->add('roles') sensible et array to string conversion garçon !
+            // à la limite ça aurait été sympa pour le panneau administration
 
             ->add('email', EmailType::class, [
                 'label' => 'Adresse Email',

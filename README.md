@@ -3,13 +3,12 @@ rental old collection vehicles
 PROJET LOC'AUTO VINTAGE (autos de 1950 à 1990)
 Site mettant en relation des propriétaires d'autos anciennes et des amateurs de balades vintage.
 
-
 ## reconstruction de votre projet
 requis :
-    - php 7.4.2
-    - mySQL laragon|wamp || mariaDB (régler sur `.env`)
-    - composer
-    - symfony 4.*
+- php 7.4.2
+- mySQL laragon|wamp || mariaDB (régler sur `.env`)
+- composer
+- symfony 4.*
 
 la première fois qu'on rétroverse notre projet on rentre dans le bon dossier et installe les dépendances de symfony
 ```bash
@@ -35,6 +34,8 @@ php bin/console doctrine:migrations:migrate
 ```
 
 et enfin on génère les fixtures pour avoir quelques users et quelques autos de base dont l'admin.
+ce serait dommage de ne pas les utiliser, et en plus hydrater la base de donnée à la main avec phpmyadmin,
+c'est une catastrophe sans nom.
 ```bash
 php bin/console doctrine:fixtures:load
 ```
@@ -50,10 +51,15 @@ et maitenant ça se passe sur http://127.0.0.1:8000
 - logo rotatif
 - header background-color dégradé
 - formulaire de recherche
-- meilleures fixtures
 - js/visionnette.js
 - map-interractive : meilleure intégration
+- page d'administration pour gestion véhicules et utilisateurs
+- commentaire pour un véhicule en base de donnée
+- commentaires d'utilisateurs à la volée avec un formulaire javaScript
 - site en PROD, en sous domaine
+
+### [version 0.7.0beta](../../releases/tag/v0.7.0beta) ::
+> can modifing the 'fiche technique du véhicule' and 'téléversing' five pictures. but not remove, gonna be forever online.
 
 #### version 0.6.7minor
 - connected user email on navbar

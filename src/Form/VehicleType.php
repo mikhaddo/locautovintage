@@ -65,7 +65,7 @@ class VehicleType extends AbstractType
                 ],
             ])
             ->add('engine_type', TextType::class, [
-                'label' => 'Nombres de cylindres du moteur (ex: 6)',
+                'label' => 'Nombres de cylindres du moteur (ex: 6 cylindres en ligne)',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'le champ \'Cylindres\' doit contenir un nombre de cylindres valides',

@@ -3,7 +3,12 @@
 {% block title %}Fiche technique{% endblock %}
 
 {% block body %}
-
+{% for message in app.flashes('success') %}
+<div class="alert alert-success col-12">{{ message }}</div>
+{% endfor %}
+{% for message in app.flashes('error') %}
+<div class="alert alert-danger col-12">{{ message }}</div>
+{% endfor %}
 {# Intégration des photos miniatures et de la fiche signalétique #}
 <div class="row backcolor">
     <div class="col-md-12 text-center">
@@ -49,7 +54,18 @@
         </div>
 
     </div>
+
+    {% if (verificationUserOwnage) %}
+    <div class="row col-12">
+        <div class="col-sm-4 col-6 offset-3">
+            {{ form(formDetailsVehicle) }}
+        </div>
+    </div>
+    {% endif %}
+
 </div>
+
+
 
 {% endblock %}
 

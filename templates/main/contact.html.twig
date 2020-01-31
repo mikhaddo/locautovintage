@@ -3,6 +3,9 @@
 {% block title %}Contact{% endblock %}
 
 {% block body %}
+{% for message in app.flashes('success') %}
+<div class="alert alert-success col-12">{{ message }}</div>
+{% endfor %}
 <div class="row backcolor">
     <div class="col-4 offset-4">
         <h2 class="h3 mb-3 font-weight-normal margtop">Contactez-nous</h2>
@@ -11,8 +14,9 @@
         {{ form_errors(form) }}
 
 
-        {{ form_row(form.field_name) }}
-        {{ form_row(form.content) }}
+        {{ form_row(form.from) }}
+        {{ form_row(form.subject) }}
+        {{ form_row(form.body) }}
 
         {# Affichage du captcha avec la clé publique récupérée directement grâce à la passerelle faite dans twig.yaml #}
         <div class="form-group">

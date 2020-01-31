@@ -28,24 +28,30 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto"></ul>
                 <ul class="navbar-nav pr-5">
                     <li class="nav-item {% if route == 'car_list' %} active {% endif %}"><a class="nav-link" href="{{ path('car_list') }}">La Collection</a></li>
-                    {% if app.user %}
-                    <li class="nav-item {% if route == 'profil' %} active {% endif %}"><a class="nav-link" href="{{ path('profil') }}">Profil</a></li>
-                    <li class="nav-item {% if route == 'form_vehicle' %} active {% endif %}"><a class="nav-link" href="{{ path('form_vehicle') }}">Ajout véhicule</a></li>
-                    <li class="nav-item {% if route == 'app_logout' %} active {% endif %}"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
-                    {% else %}
-                    <li class="nav-item {% if route == 'app_login' %} active {% endif %}"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
-                    <li class="nav-item {% if route == 'app_register' %} active {% endif %}"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
-                    {% endif %}
                     <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link" href="{{ path('contact') }}">Contact</a></li>
+                    {% if app.user %}
+                    <li class="nav-item {% if route == 'form_vehicle' %} active {% endif %}"><a class="nav-link" href="{{ path('form_vehicle') }}">Ajout véhicule</a></li>
+                    <li class="nav-item {% if route == 'profil' %} active {% endif %}"><a class="nav-link" href="{{ path('profil') }}">Profil {{ app.user.email }}</a></li>
+                    {% endif %}
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav">
+                {% if app.user %}
+                    <li class="nav-item {% if route == 'app_logout' %} active {% endif %}"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</span></a></li>
+                {% else %}
+                    <li class="nav-item {% if route == 'app_register' %} active {% endif %}"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
+                    <li class="nav-item {% if route == 'app_login' %} active {% endif %}"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
+                {% endif %}
+                </ul>
+
+                {# <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
                     <button class="btn btn-warning my-2 my-sm-0" type="submit">Rechercher</button>
-                </form>
+                </form> #}
             </div>
         </nav>
     </header>

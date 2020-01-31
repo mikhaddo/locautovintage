@@ -55,10 +55,14 @@ et maitenant ça se passe sur http://127.0.0.1:8000
 - map-interractive : meilleure intégration
 - site en PROD, en sous domaine
 
-#### version 0.6.5
-> allow modifications user profile.
-> no add/rm vehicules pictures for now
-> 1h of bootstrap magic
+#### version 0.6.7minor
+- connected user email on navbar
+- page contact with contactForm working ! but not sending real mail.
+
+#### version 0.6.5minor
+- allow modifications user profile.
+- no add/rm vehicules pictures for now
+- 1h of bootstrap magic
 
 ### [version 0.6.0beta](../../releases/tag/v0.6.0beta) :: first workin' pre-release
 > register new user, add vehicle with one picture

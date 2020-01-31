@@ -105,6 +105,8 @@ class MainController extends AbstractController
 
         $form->handleRequest($request);
 
+
+
         if($form->isSubmitted()){
             // Si le captcha n'est pas valide, on crée une nouvelle erreur dans le formulaire (ce qui l'empêchera de créer l'article et affichera l'erreur)
             // $request->request->get('g-recaptcha-response')  -----> code envoyé par le captcha dont la méthode verify() a besoin
@@ -119,7 +121,9 @@ class MainController extends AbstractController
 
                 // Création du mail
                 // T: indentation bon sang ! pas étonnant que ça fonctionne pas ensuite !
-                $message = (new Swift_Message('Contact email'))
+                // T: en plus ça c'est pour envoyer un mail automatique en cas d'inscription !
+                /*
+                $message = (new Swift_Message('email inscription'))
                     ->setFrom('locautovintage@noreply.com')     // Expediteur
                     ->setTo('destinataire@example.com')     // destinataire
                     ->setBody(
@@ -135,13 +139,25 @@ class MainController extends AbstractController
                         'text/plain'
                     )
                 ;
+                */
+
+                $message = (new Swift_Message('Contact email'))
+                    ->setFrom( $form->get('from')->getViewData() )
+                    ->setSubject( $form->get('subject')->getViewData() )
+                    ->setTo('contact@locauto.com')     // destinataire
+                    ->setBody( $form->get('body')->getViewData() )
+                ;
+                dump($message);
+                dump($form->get('body'));
 
                 // Envoi du mail
                 $mailer->send($message);
-                // Création d'un flash message de type "success"
-                $this->addFlash('success', 'Votre message a bien été envoyé!');
-                // Redirection de l'utilisateur sur la route "home" (la page d'accueil)
-                return $this->redirectToRoute('home');
+
+                // Création d'un flash message de type "success" && rafraichir
+                $this->addFlash('success', 'Merci, ' . $form->get('from')->getViewData()) . ' !';
+                $this->addFlash('success', 'Votre message \'' . $form->get('subject')->getViewData() . '\' a bien été envoyé!');
+
+                return $this->redirectToRoute('contact');
             }
         }
         return $this->render('main/contact.html.twig', [

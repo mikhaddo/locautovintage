@@ -58,8 +58,16 @@ et maitenant ça se passe sur http://127.0.0.1:8000
 - commentaires d'utilisateurs à la volée avec un formulaire javaScript
 - site en PROD, en sous domaine
 
-### [version 0.7.0beta](../../releases/tag/v0.7.0beta) ::
-> can modifing the 'fiche technique du véhicule' and 'téléversing' five pictures. but not remove, gonna be forever online.
+### [version 1.0.0](../../releases/tag/v1.0.0) :: You got another Midnight commit' !
+> this is a big day ! the website is finish. now we can only bugfixes some littles details.
+- add fixtures without bug : 3 users and 6 automobiles by default
+- repair interactive-map
+- user can modify this password
+- user can modify his profile without absolutely put some phone_number
+- formulaires are protected for not outerpass the limits on the database
+
+### [version 0.7.0beta](../../releases/tag/v0.7.0beta) :: the fiche technique du véhicule is rétroversing !
+> can modifying the 'fiche technique du véhicule' and 'téléversing' five pictures. but not remove, gonna be forever online.
 
 #### version 0.6.7minor
 - connected user email on navbar

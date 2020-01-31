@@ -94,14 +94,11 @@ class UserType extends AbstractType
             ])
             ->add('phone_number', TextType::class, [
                 'label' => 'Numéro de téléphone',
-                'required' => true,
+                'required' => false,
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'le champ \'Numéro de téléphone\' doit contenir un numéro de téléphone valide ',
-                    ]),
                     new Length([
                         'min' => 5,
-                        'max' => 15,
+                        'max' => 30,
                         'minMessage' => 'essayez avec au moins {{ limit }} caractères entrés au clavier',
                         'maxMessage' => 'essayez avec au maximum {{ limit }} caractères entrés au clavier',
                     ]),
@@ -133,9 +130,6 @@ class UserType extends AbstractType
                     'label' => 'Confirmation du mot de passe',
                 ],
                 'constraints' => [
-                    // new NotBlank([
-                    //     'message' => 'Merci de créer un mot de passe.',
-                    // ]),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Votre mot de passe doit contenir au minimum {{ limit }} charactères.',

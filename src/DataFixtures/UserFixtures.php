@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 // inclut User et Faker
 use App\Entity\User;
-use Faker;
+// use Faker;
 
 // les mots de passe
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -23,6 +23,10 @@ class UserFixtures extends Fixture
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * c'était un essai de function, mais je connais pas encore assez le dev orienté object.
+     */
+    /*
     public function generatorCities($number)
     {
 
@@ -38,9 +42,11 @@ class UserFixtures extends Fixture
 
         $this->city = $SelectTableauCities[$number];
     }
+    */
 
     public function load(ObjectManager $manager)
     {
+        /* maintenant on va faire cela en dur
         $faker = Faker\Factory::create('fr_FR');
 
         // entre les 4 utilisateurs, penser à changer en cas de soucis mais aussi sur VehicleFixtures.php
@@ -63,29 +69,61 @@ class UserFixtures extends Fixture
                 ->setInsuranceName('Titus Corp.')
                 // ->setCity( $this->generatorCities($i) )
             ;
+            //echo $this->city->generatorCities($1);
 
             /**
              * pour donner aussi le role admin et la ville autun au premier utilisateur
              * les autres auront une citée fake
              */
 
-            //echo $this->city->generatorCities($1);
-
+        for($i = 0; $i <= 2; $i++){
+            $newUser = new User();
             if($i == 0){
-                $newUser->setRoles(['ROLE_ADMIN']);
-                $newUser->setCity('autun');
+                $newUser
+                    ->setEmail('martin@test.fr')
+                    // en principe pas besoin de définir pour tout le monde ROLE_USER
+                    ->setRoles(['ROLE_ADMIN'])
+                    ->setPassword($this->passwordEncoder->encodePassword(
+                        $newUser,
+                        'celestin'
+                    ))
+                    ->setLastname('Martin')
+                    ->setFirstname('Jean')
+                    ->setPostcode(71200)
+                    ->setPhoneNumber('0612131514')
+                    ->setInsuranceName('AXA')
+                    ->setCity('Creusot')
+                ;
             } else if($i == 1){
-                $newUser->setCity('epinac');
+                $newUser
+                    ->setEmail('dupond@test.fr')
+                    // en principe pas besoin de définir pour tout le monde ROLE_USER
+                    ->setPassword($this->passwordEncoder->encodePassword(
+                        $newUser,
+                        'celestin'
+                    ))
+                    ->setLastname('Dupont')
+                    ->setFirstname('Paul')
+                    ->setPostcode(71400)
+                    ->setPhoneNumber('0632659874')
+                    ->setInsuranceName('MMA')
+                    ->setCity('Autun')
+                ;
             } else if($i == 2){
-                $newUser->setCity('auxy');
-            } else if($i == 3){
-                $newUser->setCity('tintry');
-            } else if($i == 4){
-                $newUser->setCity('tavernay');
-            } else if($i == 5){
-                $newUser->setCity('morlet');
-            } else {
-                $newUser->setCity('chalon-sur-saone');
+                $newUser
+                    ->setEmail('monnot@test.fr')
+                    // en principe pas besoin de définir pour tout le monde ROLE_USER
+                    ->setPassword($this->passwordEncoder->encodePassword(
+                        $newUser,
+                        'celestin'
+                    ))
+                    ->setLastname('Monnot')
+                    ->setFirstname('Pierre')
+                    ->setPostcode(71100)
+                    ->setPhoneNumber('0632145214')
+                    ->setInsuranceName('GENERALI')
+                    ->setCity('Chalon-sur-Saone')
+                ;
             }
 
             //->addVehicle() be carrefull with that -> got to VehicleFixtures.php

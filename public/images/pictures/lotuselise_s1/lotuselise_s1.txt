@@ -1,8 +1,0 @@
-Marque : Lotus
-Model : Elise S1
-Année : 1998
-Type-Moteur : 4 cylindres en ligne
-Cylindrée : 1796 cm3
-Puissance réelle : 118 ch
-Vitesse_Maxi : 201 km/h
-Nombre_sieges : 2

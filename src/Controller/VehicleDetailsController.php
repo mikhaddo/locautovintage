@@ -32,7 +32,7 @@ class VehicleDetailsController extends AbstractController
         $formDetailsVehicle = $this->createForm(VehicleDetailsType::class, $vehicle);
         $formDetailsVehicle->handleRequest($request);
 
-        dump($vehicle);
+        // dump($vehicle);
 
         // si un utilisateur est connecté
         if( $this->getUser() !== null ){
@@ -75,7 +75,7 @@ class VehicleDetailsController extends AbstractController
                         // pour chaques vielles photos existantes on les décompacte dans un tableau
                         // vérifier que ça ne plante pas si aucun vehicule en base de donnée !
                         foreach( $vehicle->getPictures() as $vehicleOldTabPicture ) {
-                            dump($vehicleOldTabPicture);
+                            // dump($vehicleOldTabPicture);
                             $arrayFilename[] = $vehicleOldTabPicture;
                         }
 
@@ -106,7 +106,7 @@ class VehicleDetailsController extends AbstractController
 
                             // on hydrate le tableau des véhicules avec notre nouvel upload
                             $arrayFilename[] = $safeFilename;
-                            dump($arrayFilename);
+                            // dump($arrayFilename);
 
                             // sauvegarde ce tableau pour futur transfert en base de donnée
                             $vehicle->setPictures($arrayFilename);

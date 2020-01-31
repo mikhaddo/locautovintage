@@ -123,7 +123,7 @@ window.onload = () => {
          * // déclaré en non->object ?
          * // map = L.map('map').setView([lat,lng],14);
          */
-        map = new L.map('map').setView(new L.LatLng(lat, lng), 11);
+        map = new L.map('map').setView(new L.LatLng(lat, lng), 10);
         L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
             attribution: 'donn&eacute;es &copy; <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
             minZoom: 1,
@@ -139,9 +139,10 @@ window.onload = () => {
          * // this.cities.forEach(function(city){});
          * // .bindPopup(tempMessages[i++])
          * ~ l'utilité de 'this.' ?
+         * what time is it ? think it's not woking at all o'clock !
          */
-        var returnVehiclesAdress = [];
-        var markersLayers = L.markerClusterGroup();
+        // var returnVehiclesAdress = [];
+        // var markersLayers = L.markerClusterGroup();
         for(i=0;i<markers.returnVehicles.length;i++){
 
             // what time is it ? it is not workin'o'clock
@@ -150,16 +151,18 @@ window.onload = () => {
             getAjaxGeo(markers.returnVehicles[i]['city']).then((responseText) => {
 
                     console.info('getAjaxGeo :: ' + responseText.features[0].geometry.coordinates);
-                    var varMarker = L.marker([responseText.features[0].geometry.coordinates[1],responseText.features[0].geometry.coordinates[0]])
-                        //.addTo(map)
+                    //  var varMarker = L.marker([responseText.features[0].geometry.coordinates[1],responseText.features[0].geometry.coordinates[0]])
+                    L.marker([responseText.features[0].geometry.coordinates[1],responseText.features[0].geometry.coordinates[0]])
+                        .addTo(map)
                         // le bind poppup doit afficher l'image récupérée depuis la database
                         // en tout cas on ne peut pas rappeller son objet ci-dessous
                         // markers a disparu, maintenant c'est response ou alo
 
-                        .bindPopup(responseText.features[0].properties.display_name + '<br>Propriétaire du véhicule :: <br>' + returnVehiclesAdress.firstname )
+                        //.bindPopup(responseText.features[0].properties.display_name + '<br>Propriétaire du véhicule :: <br>' + returnVehiclesAdress.firstname )
+                        .bindPopup(responseText.features[0].properties.display_name)
                     ;
-                markersLayers.addLayer(varMarkers)
-                returnVehiclesAdress.push(varMarker);
+                // markersLayers.addLayer(varMarkers)
+                // returnVehiclesAdress.push(varMarker);
 
             }).catch(error => {
                 console.error('Error \'getAjaxGeo\' ! possibilité mauvais nom de ville.');
@@ -173,9 +176,9 @@ window.onload = () => {
     }).then(() => {
         // supression de la roue du destin, même si c'est pas au bon endroit !
         getRemoveDestin();
-        var groupMarkers = new L.featureGroup(returnVehiclesAdress);
-        carte.fitBounds(groupMarkers.getBounds().pad(0.5));
-        carte.addLayer(varMarkers);
+        // var groupMarkers = new L.featureGroup(returnVehiclesAdress);
+        // carte.fitBounds(groupMarkers.getBounds().pad(0.5));
+        // carte.addLayer(varMarkers);
     });
 
 // EOF (End Of File, fin de la de la fonction principale englobante.)

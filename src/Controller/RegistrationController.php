@@ -23,7 +23,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        dump($user);
+        // dump($user);
 
         if ($form->isSubmitted()) {
 

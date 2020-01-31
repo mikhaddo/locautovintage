@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 // add by T
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\File;
@@ -30,7 +31,7 @@ class VehicleType extends AbstractType
                     ]),
                     new Length([
                         'min' => 3,
-                        'max' => 100,
+                        'max' => 50,
                         'minMessage' => 'essayez avec au moins {{ limit }} caractères entrés au clavier',
                         'maxMessage' => 'essayez avec au maximum {{ limit }} caractères entrés au clavier',
                     ]),
@@ -44,7 +45,7 @@ class VehicleType extends AbstractType
                     ]),
                     new Length([
                         'min' => 3,
-                        'max' => 100,
+                        'max' => 50,
                         'minMessage' => 'essayez avec au moins {{ limit }} caractères entrés au clavier',
                         'maxMessage' => 'essayez avec au maximum {{ limit }} caractères entrés au clavier',
                     ]),
@@ -58,7 +59,7 @@ class VehicleType extends AbstractType
                     ]),
                     new Length([
                         'min' => 4,
-                        'max' => 10,
+                        'max' => 4,
                         'minMessage' => 'essayez avec au moins {{ limit }} caractères entrés au clavier',
                         'maxMessage' => 'essayez avec au maximum {{ limit }} caractères entrés au clavier',
                     ]),
@@ -72,13 +73,13 @@ class VehicleType extends AbstractType
                     ]),
                     new Length([
                         'min' => 1,
-                        'max' => 10,
+                        'max' => 20,
                         'minMessage' => 'essayez avec au moins {{ limit }} caractères entrés au clavier',
                         'maxMessage' => 'essayez avec au maximum {{ limit }} caractères entrés au clavier',
                     ]),
                 ],
             ])
-            ->add('engine_displacement', TextType::class, [
+            ->add('engine_displacement', IntegerType::class, [
                 'label' => 'Cylindrée du moteur, en cm³ (ex: 3000)',
                 'constraints' => [
                     new NotBlank([
@@ -86,13 +87,13 @@ class VehicleType extends AbstractType
                     ]),
                     new Length([
                         'min' => 1,
-                        'max' => 10,
+                        'max' => 4,
                         'minMessage' => 'essayez avec au moins {{ limit }} caractères entrés au clavier',
                         'maxMessage' => 'essayez avec au maximum {{ limit }} caractères entrés au clavier',
                     ]),
                 ],
             ])
-            ->add('engine_power', TextType::class, [
+            ->add('engine_power', IntegerType::class, [
                 'label' => 'Puissance du moteur, en cheval-vapeur (ex: 177)',
                 'constraints' => [
                     new NotBlank([
@@ -100,13 +101,13 @@ class VehicleType extends AbstractType
                     ]),
                     new Length([
                         'min' => 1,
-                        'max' => 10,
+                        'max' => 4,
                         'minMessage' => 'essayez avec au moins {{ limit }} caractères entrés au clavier',
                         'maxMessage' => 'essayez avec au maximum {{ limit }} caractères entrés au clavier',
                     ]),
                 ],
             ])
-            ->add('max_speed', TextType::class, [
+            ->add('max_speed', IntegerType::class, [
                 'label' => 'Vitesse maximale, en km/h (ex: 260)',
                 'constraints' => [
                     new NotBlank([
@@ -114,13 +115,13 @@ class VehicleType extends AbstractType
                     ]),
                     new Length([
                         'min' => 1,
-                        'max' => 10,
+                        'max' => 4,
                         'minMessage' => 'essayez avec au moins {{ limit }} caractères entrés au clavier',
                         'maxMessage' => 'essayez avec au maximum {{ limit }} caractères entrés au clavier',
                     ]),
                 ],
             ])
-            ->add('max_seats', TextType::class, [
+            ->add('max_seats', IntegerType::class, [
                 'label' => 'Nombre de sièges (ex: 5)',
                 'constraints' => [
                     new NotBlank([
@@ -128,7 +129,7 @@ class VehicleType extends AbstractType
                     ]),
                     new Length([
                         'min' => 1,
-                        'max' => 10,
+                        'max' => 4,
                         'minMessage' => 'essayez avec au moins {{ limit }} caractères entrés au clavier',
                         'maxMessage' => 'essayez avec au maximum {{ limit }} caractères entrés au clavier',
                     ]),
@@ -144,14 +145,14 @@ class VehicleType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new File([
-                        'maxSize' => '10M',
+                        'maxSize' => '2M',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/x-jpeg',
                             'image/png',
                             'image/x-png',
                         ],
-                        'mimeTypesMessage' => 'Veuillez envoyer une image valide en .jpg ou .png jusqu\'à 10Méga-octects',
+                        'mimeTypesMessage' => 'Veuillez envoyer une image valide en .jpg ou .png jusqu\'à 2Méga-octects',
                     ])
                 ],
             ])

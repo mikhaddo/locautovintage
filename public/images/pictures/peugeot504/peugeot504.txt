@@ -1,8 +1,0 @@
-Marque : Peugeot
-Model : 504
-Année : 1969
-Type-Moteur : 4 cylindres en ligne
-Cylindrée : 1800 cm3
-Puissance réelle : 97 ch
-Vitesse_Maxi : 179 km/h
-Nombre_sieges : 4

@@ -15,6 +15,8 @@ use App\Entity\Vehicle;
 use App\Entity\User;
 use \Swift_Message; //Importation des deux classes necessaires pour envoyer un email
 use \Swift_Mailer;
+// T: maintenant on peut changer le password !
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 // T: téléversements
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -152,7 +154,7 @@ class MainController extends AbstractController
   * Si la personne qui essaye de venir sur cette page n'est pas connectée, elle sera redirigée à la page de connexion par le firewall
   * n'oublis pas le Request en argument !
   */
-  public function profil(Request $request)
+  public function profil(Request $request, UserPasswordEncoderInterface $passwordEncoder)
   {
 
     // search repository véhicles
@@ -164,12 +166,24 @@ class MainController extends AbstractController
     $formProfil->handleRequest($request);
 
     if($formProfil->isSubmitted() && $formProfil->isValid()){
+
+        if( $formProfil->get('plainPassword')->getData() != null ) {
+            // encode the plain password
+            $this->getUser()->setPassword(
+                $passwordEncoder->encodePassword(
+                    $this->getUser(),
+                    $formProfil->get('plainPassword')->getData()
+                )
+            );
+            $this->addFlash('success', 'Votre mot de passe à été modifié ! souvenez-vous en !');
+        }
+
         // send to datase && message de vainqueur && return to 'profil'
         $em = $this->getDoctrine()->getmanager();
         $em->persist($this->getUser());
         $em->flush();
         $this->addFlash('success', 'Votre profil fut modifié.');
-        return $this->redirectToRoute('profil');
+       return $this->redirectToRoute('profil');
     }
 
     return $this->render('main/profil.html.twig',[

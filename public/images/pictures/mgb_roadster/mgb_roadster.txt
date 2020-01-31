@@ -1,8 +1,0 @@
-Marque : MG
-Model : B MK III
-Année : 1974
-Type-Moteur : 4 cylindres en ligne
-Cylindrée : 1798 cm3
-Puissance réelle : 95 ch
-Vitesse_Maxi : 170 km/h
-Nombre_sieges : 2

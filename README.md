@@ -3,6 +3,48 @@ rental old collection vehicles
 PROJET LOC'AUTO VINTAGE (autos de 1950 à 1990)
 Site mettant en relation des propriétaires d'autos anciennes et des amateurs de balades vintage.
 
+
+## reconstruction de votre projet
+requis :
+    - php 7.4.2
+    - mySQL laragon|wamp || mariaDB (régler sur `.env`)
+    - composer
+    - symfony 4.*
+
+la première fois qu'on rétroverse notre projet on rentre dans le bon dossier et installe les dépendances de symfony
+```bash
+cd locautovintage/
+ls
+composer install
+```
+
+ensuite on crée une base de donnée si on en a pas déjà, mais tu l'as peut être gardée sur ton http://127.0.0.1/phpmyadmin avec ta base de donnée de laragone
+```bash
+symfony console doctrine:database:create
+```
+
+maintenant c'est la reconstruction de la base si ça foire pas, car si ça foire c'est d'abord (attention cette commande remove)
+```bash
+rm src/Migrations/*.php
+```
+
+et voilà la reconstruction en question
+```bash
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
+
+et enfin on génère les fixtures pour avoir quelques users et quelques autos de base dont l'admin.
+```bash
+php bin/console doctrine:fixtures:load
+```
+
+pour démarrer le serveur intégré de symfony
+``` bash
+symfony serve
+```
+et maitenant ça se passe sur http://127.0.0.1:8000
+
 ## améliorations possibles
 - FA icones
 - logo rotatif
@@ -13,8 +55,16 @@ Site mettant en relation des propriétaires d'autos anciennes et des amateurs de
 - map-interractive : meilleure intégration
 - site en PROD, en sous domaine
 
-### version 0.5.0beta
-- fonctionnel : rien/20
+#### version 0.6.5
+> allow modifications user profile.
+> no add/rm vehicules pictures for now
+> 1h of bootstrap magic
+
+### [version 0.6.0beta](../../releases/tag/v0.6.0beta) :: first workin' pre-release
+> register new user, add vehicle with one picture
+
+### [version 0.5.0beta](../../releases/tag/v0.5.0beta) :: nothin' on twenty'
+> fonctionnel : rien/20
 
 ## cahier des charges
 ```cahier

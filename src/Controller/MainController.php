@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormError; // Importation de la classe permettant de 
 use App\Recaptcha\RecaptchaValidator; // Importation de notre service de validation du captcha
 use App\Form\VehicleType;
 use App\Form\ContactType;
+use App\Form\UserType;
 use App\Entity\Vehicle;
 use App\Entity\User;
 use \Swift_Message; //Importation des deux classes necessaires pour envoyer un email
@@ -151,18 +152,34 @@ class MainController extends AbstractController
 /**
   * @Route("/profil", name="profil")
   * @Security("is_granted('ROLE_USER')")
+  * Si la personne qui essaye de venir sur cette page n'est pas connectée, elle sera redirigée à la page de connexion par le firewall
+  * n'oublis pas le Request en argument !
   */
-  public function profil()
+  public function profil(Request $request)
   {
-      // Si la personne qui essaye de venir sur cette page n'est pas connectée, elle sera redirigée à la page de connexion par le firewall
 
-      $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
+    // search repository véhicles
+    $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
+    $vehicles = $vehicleRepository->findAllByThisUser( $this->getUser() );
 
-      $vehicles = $vehicleRepository->findAllByThisUser( $this->getUser() );
-      dump($vehicles);
-      return $this->render('main/profil.html.twig',[
-        'vehicles' => $vehicles
+    // create form avec son handleRequest s'il te plait ! On évite de perdre une heure à chercher à cause de cecis.
+    $formProfil = $this->createForm(UserType::class, $this->getUser());
+    $formProfil->handleRequest($request);
+
+    if($formProfil->isSubmitted() && $formProfil->isValid()){
+        // send to datase && message de vainqueur && return to 'profil'
+        $em = $this->getDoctrine()->getmanager();
+        $em->persist($this->getUser());
+        $em->flush();
+        $this->addFlash('success', 'Votre profil fut modifié.');
+        return $this->redirectToRoute('profil');
+    }
+
+    return $this->render('main/profil.html.twig',[
+        'vehicles' => $vehicles,
+        'formProfil' => $formProfil->createView(),
     ]);
+
   }
 
  /**
@@ -257,5 +274,5 @@ public function createVehicle(Request $request){
         ]);
     }
 
-// do not tuch at dat '{'
+// do not tuch at dat stache '{'
 }

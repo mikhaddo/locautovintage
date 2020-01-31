@@ -7,22 +7,36 @@
     <div class="alert alert-success col-12">{{ message }}</div>
     {% endfor %}
 <div class="row backcolor">
-    <h2 class="col-8 offset-2 text-center">Profil!</h2>
+    <h2 class="col-8 offset-2 my-3 text-center">Profil!</h2>
 
-    <div class="col-6 offset-3">
-        <div class="car-detail-tech">
-            <ul class="pt-2">
-                <li>Prénom:      {{ app.user.firstname }}</li>
-                <li>Nom:      {{ app.user.lastname }}</li>
-                <li>E-mail:      {{ app.user.email }}</li>
-                <li>Téléphone:   {{ app.user.getPhoneNumber }}</li>
-                <li>Ville : {{ app.user.city }}</li>
-            </ul>
-        </div>
-        <div class="car-detail-tech">
-            <ul class="pt-2">
-                {% if vehicles is not empty %}
+    <div class="col-10 offset-1 container-fluid">
+
+        <div class="row">
+            {# T :: bootrap : penser à rajouter -sm- pour enfin pouvoir wrap en responsive #}
+            <div class="col-sm-8">
+                <ul class="">
+                    <li>E-mail : {{ app.user.email }}</li>
+                    <li>Prénom : {{ app.user.firstname }}</li>
+                    <li>Nom : {{ app.user.lastname }}</li>
+                    <li>Code Postal: {{ app.user.postcode }}</li>
+                    <li>Ville : {{ app.user.city }}</li>
+                    <li>Téléphone : {{ app.user.phonenumber }}</li>
+                    <li>Assurance : {{ app.user.insurancename }}</li>
+                    <li>Rôles : {% if app.user.roles is defined %}{% for role in app.user.roles %} {{ ' ' ~ role ~ ' ' }} {% endfor %}{% endif %}</li>
+                    <li>Nombre de véhicules :
+                        {% if vehicles is not empty %}
+                            {{ vehicles|length }}
+                            {# dump(vehicles) #}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </li>
+                    <li>Louez un véhicule !</li>
+                </ul>
+
+                {# <div class="car-detail-tech"> #}
                 <div class="d-flex flex-wrap justify-content-center">
+                {% if vehicles is not empty %}
                     {% for vehicle in vehicles %}
                         <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="thumbnail mw-100 mb-2 m-sm-3">
                             <div class="mw-100 img-thumbnail"
@@ -36,12 +50,18 @@
                         </a>
                         {# <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="list-group-item list-group-item-action">{{ vehicle.pictures }}</a> #}
                     {% endfor %}
+                    {% else %}
+                    <div class="alert alert-danger">Aucune voiture disponible dans la collection.</div>
+                    {% endif %}
                 </div>
-                {% else %}
-                <div class="alert alert-danger">Aucune voiture disponible dans la collection.</div>
-                {% endif %}
-            </ul>
+                {# </div> #}
+
+            </div>
+            <div class="col-sm-4">
+                {{ form(formProfil) }}
+            </div>
         </div>
+
         <div class="col text-center">
             <button type="input" class="btn btn-warning text-center mt-2 mb-4"><a class="carprof" href="{{ path('form_vehicle') }}">Ajouter un véhicule</a></button>
         </div></a>

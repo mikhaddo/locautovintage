@@ -144,7 +144,7 @@ class VehicleType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new File([
-                        'maxSize' => '10240k',
+                        'maxSize' => '10M',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/x-jpeg',

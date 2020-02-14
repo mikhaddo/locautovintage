@@ -9,45 +9,41 @@
 {% endblock %}
 
 {% block body %}
+<div class="row">
 
-{#Intégration de la collection#}
-<div class="row backcolor">
-    <div class="col-md-12 text-center">
-        <h2>La Collection</h2>
-    </div>
-</div>
+    {#Intégration de la collection#}
+    <div class="col-md-6">
+        <h2 class="text-center my-3">La Collection</h2>
 
-<div class="row backcolor">
-    <div class="col-12 col-md-10 offset-md-1 mt-5">
-        {% if vehicles is not empty %}
-        <div class="d-flex flex-wrap justify-content-center">
-            {% for vehicle in vehicles %}
-                <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="thumbnail mw-100 mb-2 m-sm-3">
-                    {# <div class="mw-100 img-thumbnail" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');height:250px; width:450px; background-size: cover; background-position: center center;"> #}
-                    <div class="mw-100 img-thumbnail"
-                        {% if vehicle.pictures[0] is defined %}
-                            style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');
-                            height:250px; width:450px; background-size: cover; background-position: center center;"
-                        {% endif %}
-                    >
-                    </div>
-                    <p class="carlabel">{{ vehicle.brand }} {{ vehicle.model }}</p>
-                </a>
-                {# <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="list-group-item list-group-item-action">{{ vehicle.pictures }}</a> #}
-            {% endfor %}
+        <div class="d-flex flex-wrap justify-content-center justify-content-sm-around">
+            {% if vehicles is not empty %}
+                {% for vehicle in vehicles %}
+                    <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="mw-100 text-decoration-none text-dark">
+                        {# <div class="mw-100 img-thumbnail" style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');height:250px; width:450px; background-size: cover; background-position: center center;"> #}
+                        <div class="mw-100 img-thumbnail"
+                            {% if vehicle.pictures[0] is defined %}
+                                style="background-image:url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');
+                                height:250px; width:450px; background-size:cover; background-position:center center;"
+                            {% endif %}
+                        ></div>
+                        <p class="">{{ vehicle.brand }} {{ vehicle.model }}</p>
+                    </a>
+                    {# <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="list-group-item list-group-item-action">{{ vehicle.pictures }}</a> #}
+                {% endfor %}
+            {% else %}
+                <p class="alert alert-danger">Aucune voiture disponible dans la collection.</p>
+            {% endif %}
         </div>
-        {% else %}
-        <div class="alert alert-danger">Aucune voiture disponible dans la collection.</div>
-        {% endif %}
+
     </div>
+
+    <div class="col-md-6">
+        <h2 class="text-center my-3">La Localisation</h2>
+        <div class="col-md-10 offset-md-1 vh-100 my-4 mx-auto" id="map"></div>
+    </div>
+
 </div>
 
-<div class="row backcolor">
-    <div class="col-2 offset-5">
-    <h2 class=" pt-0 m-0 backcolor">Localisation</h2>
-</div>
-    <div class="my-4 mx-auto" id="map"></div>
-</div>
 {% endblock %}
 
 {% block javascripts %}

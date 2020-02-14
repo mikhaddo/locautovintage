@@ -4,47 +4,55 @@
 
 {% block body %}
 
-    <div class="row">
-        <h1 class="col-8 offset-1 mt-5 text-center">La liste des personnalitées ! {{ users.getTotalItemCount }}</h1>
+<div class="row">
+
+    {# <h1 class="col-8 offset-1 mt-5 text-center">La liste des personnalitées ! {{ users.getTotalItemCount }}</h1> #}
+
+    <div class="col-sm-10 offset-sm-1 my-4 bg-info text-light shadow border border-light">
+
+        <p class="text-center my-3 bg-dark">
+            <span class="mx-2">'Trier par Id', 'u.id'</span>
+            <span class="mx-2">'Trier par Email', 'u.email'</span>
+            <span class="mx-2">'Trier par Rôles', 'u.roles'</span>
+            {# <span class="mx-2">{{ knp_pagination_sortable(users, 'Trier par Id', 'u.id') }}</span> #}
+            {# <span class="mx-2">{{ knp_pagination_sortable(users, 'Trier par Email', 'u.email') }}</span> #}
+            {# <span class="mx-2">{{ knp_pagination_sortable(users, 'Trier par Rôles', 'u.roles') }}</span> #}
+        </p>
+
+        {# <div class="my-3 text-center"><div class="d-inline-block">{{ knp_pagination_render(users) }}</div> #}
     </div>
 
-    <div class="row">
-        <div class="col-8 offset-1 my-4 bg-dark text-light border border-light shadow-lg">
-
-            <p class="text-center my-3 bg-warning">
-                <span class="mx-2">{{ knp_pagination_sortable(users, 'Trier par Id', 'u.id') }}</span>
-                <span class="mx-2">{{ knp_pagination_sortable(users, 'Trier par Email', 'u.email') }}</span>
-                <span class="mx-2">{{ knp_pagination_sortable(users, 'Trier par Rôles', 'u.roles') }}</span>
-            </p>
-
-            <div class="my-3 text-center"><div class="d-inline-block">{{ knp_pagination_render(users) }}</div></div>
-
-        <table class="table bg-light text-dark">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Email</th>
-                    <th>Rôles</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
+    <table class="table bg-light text-dark">
+        <thead>
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles|join(' :: ') }}</td>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Rôles</th>
             </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        </thead>
+        <tbody>
+        {# {% for user in users %} #}
+        <tr>
+            <td>alo</td>
+            <td>ki</td>
+            <td>koi</td>
+            {# <td>{{ user.id }}</td> #}
+            {# <td>{{ user.email }}</td> #}
+            {# <td>{{ user.roles|join(' :: ') }}</td> #}
+        </tr>
+        {# {% endfor %} #}
+        </tbody>
+    </table>
 
-        <div class="my-3 text-center"><div class="d-inline-block">{{ knp_pagination_render(users) }}</div></div>
+    {# <div class="my-3 text-center"><div class="d-inline-block">{{ knp_pagination_render(users) }}</div> #}
 
-        {# bouclette à l'ancienne sans join
-        {% for user in users %}
-            {% for alo in user.roles %}
-                {{ alo }}
-            {% endfor %}
-        {% endfor %} #}
+    {# bouclette à l'ancienne sans join
+    {% for user in users %}
+        {% for alo in user.roles %}
+            {{ alo }}
+        {% endfor %}
+    {% endfor %} #}
+
+</div>
 
 {% endblock %}

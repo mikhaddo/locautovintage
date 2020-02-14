@@ -28,7 +28,7 @@ class VehicleDetailsController extends AbstractController
          * il s'agit de bien vérifier si l'utilisateur est propriétaire du véhicule,
          * pour lui donner les droits de modification, et un accès au formulaire en vue twig.
          */
-        $verificationUserOwnage = false;
+        $verificationUserOwnage = FALSE;
         $formDetailsVehicle = $this->createForm(VehicleDetailsType::class, $vehicle);
         $formDetailsVehicle->handleRequest($request);
 
@@ -118,7 +118,7 @@ class VehicleDetailsController extends AbstractController
                     }
 
                     // send to datase && message de vainqueur && return to 'profil' with /{id}
-                    $em = $this->getDoctrine()->getmanager();
+                    $em = $this->getDoctrine()->getManager();
                     $em->persist($vehicle);
                     $em->flush();
                     $this->addFlash('success', 'Votre véhicule fut modifié.');

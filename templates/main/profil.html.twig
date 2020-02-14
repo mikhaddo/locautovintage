@@ -1,20 +1,22 @@
 {% extends 'base.html.twig' %}
+{% form_theme formProfil "form_style.html.twig" %}
 
 {% block title %}Votre Profil{% endblock %}
 
 {% block body %}
+<div class="row">
+
     {% for message in app.flashes('success') %}
-    <div class="alert alert-success col-12">{{ message }}</div>
+        <div class="alert alert-success col-12">{{ message }}</div>
     {% endfor %}
-<div class="row backcolor">
-    <h2 class="col-8 offset-2 my-3 text-center">Profil!</h2>
 
     <div class="col-10 offset-1 container-fluid">
-
+        
         <div class="row">
             {# T :: bootrap : penser à rajouter -sm- pour enfin pouvoir wrap en responsive #}
             <div class="col-sm-8">
-                <ul class="">
+                <h2 class="text-center my-3">Profil!</h2>
+                <ul class="list-unstyled">
                     <li>E-mail : {{ app.user.email }}</li>
                     <li>Prénom : {{ app.user.firstname }}</li>
                     <li>Nom : {{ app.user.lastname }}</li>
@@ -22,7 +24,8 @@
                     <li>Ville : {{ app.user.city }}</li>
                     <li>Téléphone : {{ app.user.phonenumber }}</li>
                     <li>Assurance : {{ app.user.insurancename }}</li>
-                    <li>Rôles : {% if app.user.roles is defined %}{% for role in app.user.roles %} {{ ' ' ~ role ~ ' ' }} {% endfor %}{% endif %}</li>
+                    {# ne doit pas afficher le rôle, pas ux-design #}
+                    {# <li>Rôles : {% if app.user.roles is defined %}{% for role in app.user.roles %} {{ ' ' ~ role ~ ' ' }} {% endfor %}{% endif %}</li> #}
                     <li>Nombre de véhicules :
                         {% if vehicles is not empty %}
                             {{ vehicles|length }}
@@ -35,10 +38,10 @@
                 </ul>
 
                 {# <div class="car-detail-tech"> #}
-                <div class="d-flex flex-wrap justify-content-center">
+                <div class="d-flex flex-wrap justify-content-center justify-content-md-around">
                 {% if vehicles is not empty %}
                     {% for vehicle in vehicles %}
-                        <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="thumbnail mw-100 mb-2 m-sm-3">
+                        <a href="{{ path('car_detail', { id: vehicle.id }) }}" class="mw-100 text-decoration-none text-dark">
                             <div class="mw-100 img-thumbnail"
                                 {% if vehicle.pictures[0] is defined %}
                                     style="background-image: url('{{ asset('images/pictures/' ~ vehicle.pictures[0]) }}');
@@ -62,9 +65,9 @@
             </div>
         </div>
 
-        <div class="col text-center">
-            <button type="input" class="btn btn-warning text-center mt-2 mb-4"><a class="carprof" href="{{ path('form_vehicle') }}">Ajouter un véhicule</a></button>
-        </div></a>
+        <div class="text-center">
+            <a class="btn btn-warning text-center text-decoration-none text-dark my-2" href="{{ path('form_vehicle') }}">Ajouter un véhicule</a>
+        </div>
     </div>
 </div>
 

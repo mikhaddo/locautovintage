@@ -1,31 +1,39 @@
 {% extends 'base.html.twig' %}
+{% form_theme registrationForm "form_style.html.twig" %}
 
 {% block title %}Register{% endblock %}
-
-{% block body %}
-<div class="row backcolor">
-    <div class="col-6 img_home image_home_register"></div>
-        <div class="col-4 form">
-            <div class="offset-6">
-                <h2 class="h3 mb-3 margtop">Inscription</h2>
-                    {{ form_start(registrationForm) }}
-
-                        {{ form_errors(registrationForm) }}
-
-                        {{ form_row(registrationForm.email) }}
-                        {{ form_row(registrationForm.plainPassword) }}
-                        {{ form_row(registrationForm.agreeTerms) }}
-                        <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
-                        </div>
-                        {{ form_row(registrationForm.save) }}
-                    {{ form_end(registrationForm) }}
-            </div>
-        </div>
-</div>
-
-{% endblock %}
 {% block stylesheets %}
     {# Insertion du fichier JS dans le block stylesheets, ce n'est pas une erreur, la documentation de Recaptcha préconise en effet d'intégrer ce fichier JS dans le head #}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+        {# display none if screen maximum small. 6 columns in case of screen small
+        background-image in the css : .img_home ; vh-100 for resizing #}
+        <div class="d-none d-sm-block col-sm-6 img_home vh-100"></div>
+
+    <div class="col-sm-6">
+
+        <h2 class="text-center my-3">Inscription</h2>
+        <div class="col-sm-4 offset-sm-4 d-flex justify-content-center">
+            {{ form_start(registrationForm) }}
+
+                {{ form_errors(registrationForm) }}
+
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+                <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
+                </div>
+                {{ form_row(registrationForm.save) }}
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

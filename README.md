@@ -2,6 +2,19 @@
 rental old collection vehicles
 PROJET LOC'AUTO VINTAGE (autos de 1950 à 1990)
 Site mettant en relation des propriétaires d'autos anciennes et des amateurs de balades vintage.
+- [#locautovintage](#locautovintage)
+    - [#reconstruction-de-votre-projet](#reconstruction-de-votre-projet)
+    - [#améliorations-possibles](#améliorations-possibles)
+        - [#version-110--front-end-repair](#version-110--front-end-repair)
+        - [#version-100--you-got-another-midnight-commit-](#version-100--you-got-another-midnight-commit-)
+        - [#version-070beta--the-fiche-technique-du-véhicule-is-rétroversing-](#version-070beta--the-fiche-technique-du-véhicule-is-rétroversing-)
+            - [#version-067minor](#version-067minor)
+            - [#version-065minor](#version-065minor)
+        - [#version-060beta--first-workin-pre-release](#version-060beta--first-workin-pre-release)
+        - [#version-050beta--nothin-on-twenty](#version-050beta--nothin-on-twenty)
+    - [#cahier-des-charges](#cahier-des-charges)
+    - [#utilisation-terminal-git](#utilisation-terminal-git)
+        - [#contributors](#contributors)
 
 ## reconstruction de votre projet
 requis :
@@ -9,6 +22,11 @@ requis :
 - mySQL laragon|wamp || mariaDB (régler sur `.env`)
 - composer
 - symfony 4.*
+
+clonage du dépot (ou si déjà fait : `git pull`)
+```bash
+git clone https://github.com/mikhaddo/locautovintage
+```
 
 la première fois qu'on rétroverse notre projet on rentre dans le bon dossier et installe les dépendances de symfony
 ```bash
@@ -47,8 +65,6 @@ symfony serve
 et maitenant ça se passe sur http://127.0.0.1:8000
 
 ## améliorations possibles
-- FA icones
-- logo rotatif
 - header background-color dégradé
 - formulaire de recherche
 - js/visionnette.js
@@ -57,6 +73,14 @@ et maitenant ça se passe sur http://127.0.0.1:8000
 - commentaire pour un véhicule en base de donnée
 - commentaires d'utilisateurs à la volée avec un formulaire javaScript
 - site en PROD, en sous domaine
+
+### [version 1.1.0](../../releases/tag/v1.1.0) :: front-end repair
+> front-end -> the-end !
+- index && footer okay
+- improvement of CSS : 64lines of 265line back old days !
+- incorporation of Bootstrap-class in jQuery visionnette 'viewer.js'
+- and best of all : all pages 100% valid W3C !
+- but front-end is always little ugly.
 
 ### [version 1.0.0](../../releases/tag/v1.0.0) :: You got another Midnight commit' !
 > this is a big day ! the website is finish. now we can only bugfixes some littles details.
@@ -86,49 +110,58 @@ et maitenant ça se passe sur http://127.0.0.1:8000
 
 ## cahier des charges
 ```cahier
-Fiche inscription propriétaire :
-	- mail
-	- mot de passe (x2)
-    Saisie de la fiche d'inscription :
-    - nom
-    - prénom
-    - ville
-    - mail
-    - téléphone
-    - nom de l'assurance
-    - mon assurance couvre la location à titre onéreux (O/N)
-    Auto :
-    - marque
-    - modèle
-    - année
+3) Arborescence – Plan du site :
+
+- Page d'accueil
+
+	- la collection des autos
+
+		- le détail d’une auto
+
+	- inscription
+
+	- connexion
+
+		- affichage/modification du profil
+
+	- contact
+
+    	- Convention de nommage des photos :
+
+Le nom des photos est construit en concaténant les informations suivantes :
+ID_OWNER + BRAND + MODEL + ‘-’ + n° de la photo de 1 à 5 suivi de l’extension ‘.JPG’.
+
+Exemples : ‘2bmw2002-3.jpg’, ‘5jaguarxjs-1.jpg’
+
+Respect des normes UX/UI Design :
+	Visible sur les moteurs de recherche grâce à une conception SEO Friendly.
+    	Compatible pour un affichage optimal sur toutes les tailles d’écran.
+    	Conforme à l’image de l’entreprise et rassurant.
+    	Efficace en facilitant la navigation et la recherche d’informations.
+    	Disponible 24h/24 et sans erreur 404.
+
+Respect des normes Responsive Design.
+
+Utilise l’architecture MVC (Modèle-Vue-Contrôleur).
+
+
 ```
 
 ## utilisation terminal git
-require 'git clone https://github.com/mikhaddo/locautovintage.git && git pull'
-
-if(working){
+```bash
     git status
     git add .
     git status
     git commit -m "voici mon commit les amis"
     git status
     git push
-} else {
 
     git config --global user.{name,email} {"aloe",aloe.vera@hotmail.com} ## (là :: c:\users\utilisateurs\.gitconfig)
     git fetch origin ## (peut être ici il faudra modifier la diff entre ton(tes) fichier(s), et celui du serveur)
-    git merge origin/master -m 'je merge ma petite fusion, et ça va bien se passer' ##
-}
-
-## todo
-- [X] retrouvailles sur le discord game !
-- [ ] cahier des charges:
-    - [ ] améliorer lisibilité
-    - [ ] liste des technologies utilisées
-    - [ ] cahier des charges en pdf
-    - [ ] présentation type 'powerpoint'
-- [ ] page html de squelette bootstrap avec menu, couleurs, footer, classes
-- [ ] wiki : technos utilisées, par qui ; functionalitées site ; /etc/..
+    modify files !
+    git merge origin/master -m 'je merge ma petite fusion, et ça va bien se passer'
+    git push
+```
 
 ### contributors
 * __Jean-Philippe__ <https://github.com/jean-philippeG>
@@ -136,10 +169,19 @@ if(working){
 * __Thierry__ <https://github.com/mikhaddo>
 * __~~Murat~~__ <https://github.com/Murat389>
 
-### table
-First Header | Second Header
------------- | -------------
-aloe | verae
+| Tech           | Thierry | Jean-Philippe | Brian | ~~Murat~~ |
+| -------------- | :-----: | :-----------: | :---: | :-------: |
+| git            | **X**   |               |       |           |
+| MarkDown       | **X**   |               | **X** |           |
+| cahier-charges |         | **X**         |       |           |
+| presentation   |         | **X**         |       |           |
+| mySQL/Symfony  |         | **X**         |       |           |
+| HTML           | **X**   |               | **X** |           |
+| CSS            | **X**   |               | **X** |           |
+| Bootstrap      | **X**   |               |       |           |
+| javaScript     | **X**   |               |       |           |
+| jQuery         | **X**   |               |       |           |
+| PHP            | **X**   |               |       |           |
+| Symfony        | **X**   |               | **X** |           |
 
-#### rnd()
 ![powered-by](https://web.archive.org/web/20061209091918im_/http://www.elroubio.net/nouveaute/phpinup_gpl_7.jpg)

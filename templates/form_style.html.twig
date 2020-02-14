@@ -1,0 +1,18 @@
+{% use "bootstrap_4_layout.html.twig" %}
+
+{# https://symfony.com/doc/current/form/form_themes.html#creating-a-form-theme-in-a-separate-template #}
+{# https://github.com/symfony/symfony/blob/537d373e0d8cb11fa70ddbe9559f2c4a741117a9/src/Symfony/Bridge/Twig/Resources/views/Form/bootstrap_4_layout.html.twig#L294 #}
+
+{# Errors #}
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        <span class="{% if form is not rootform %}invalid-feedback{% else %}alert alert-danger{% endif %} d-block">
+            {% for error in errors %}
+                <span class="d-block bg-danger p-2">
+                    <span class="form-error-icon badge badge-danger text-uppercase">{{ 'Error'|trans({}, 'validators') }}</span>
+                    <span class="form-error-message text-light">{{ error.message }}</span>
+                </span>
+            {% endfor %}
+        </span>
+    {% endif %}
+{% endblock form_errors %}

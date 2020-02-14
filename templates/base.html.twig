@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{# height-100% for sticky-footer #}
 <html lang="fr" class="h-100">
 <head>
     <meta charset="UTF-8">
@@ -11,19 +12,16 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     {% block stylesheets %}{% endblock %}
 </head>
-<body class="bg-dark d-flex flex-column h-100">
+{# height-100% for sticky-footer && d-fled flex-culumn #}
+<body class="d-flex flex-column h-100">
 
-    {# variable qui récupère les routes acctuellement chargées #}
+    {# actual route, for color active buttons on navbar #}
     {% set route = app.request.attributes.get('_route') %}
 
-    <div class="container-fluid">
-        <div class="row">
-            <h1 class="col-md-12 text-center title pb-3 display-2">Loc' Auto Vintage</h1>
-        </div>
-    </div>
-    <header class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
-            <a href="{{ path('home') }}#home" id="iconcolor"><img src="{{ asset('images/icon_new.jpg') }}" class="icon mb-2" alt="icon"></a>
+    <header>
+        <h1 class="col-md-12 text-center title display-2 py-3 m-0">Loc' Auto Vintage</h1>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2" id="main-navbar">
+            <a href="{{ path('home') }}#home" id="iconcolor"><img src="{{ asset('images/icon3.png') }}" alt="icon"></a>
             <a class="navbar-brand active ml-5" href="{{ path('home') }}#home">Accueil</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,19 +30,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto"></ul>
                 <ul class="navbar-nav pr-5">
-                    <li class="nav-item {% if route == 'car_list' %} active {% endif %}"><a class="nav-link" href="{{ path('car_list') }}">La Collection</a></li>
-                    <li class="nav-item {% if route == 'contact' %} active {% endif %}"><a class="nav-link" href="{{ path('contact') }}">Contact</a></li>
+                    <li class="nav-item {% if route == 'car_list' %}active{% endif %}"><a class="nav-link" href="{{ path('car_list') }}">La Collection</a></li>
+                    <li class="nav-item {% if route == 'contact' %}active{% endif %}"><a class="nav-link" href="{{ path('contact') }}">Contact</a></li>
                     {% if app.user %}
-                    <li class="nav-item {% if route == 'form_vehicle' %} active {% endif %}"><a class="nav-link" href="{{ path('form_vehicle') }}">Ajout véhicule</a></li>
-                    <li class="nav-item {% if route == 'profil' %} active {% endif %}"><a class="nav-link" href="{{ path('profil') }}">Profil {{ app.user.email }}</a></li>
+                    <li class="nav-item {% if route == 'form_vehicle' %}active{% endif %}"><a class="nav-link" href="{{ path('form_vehicle') }}">Ajout véhicule</a></li>
+                    <li class="nav-item {% if route == 'profil' %}active{% endif %}"><a class="nav-link" href="{{ path('profil') }}">Profil {{ app.user.email }}</a></li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav">
                 {% if app.user %}
-                    <li class="nav-item {% if route == 'app_logout' %} active {% endif %}"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</span></a></li>
+                    <li class="nav-item {% if route == 'app_logout' %}active{% endif %}"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
                 {% else %}
-                    <li class="nav-item {% if route == 'app_register' %} active {% endif %}"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
-                    <li class="nav-item {% if route == 'app_login' %} active {% endif %}"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
+                    <li class="nav-item {% if route == 'app_register' %}active{% endif %}"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
+                    <li class="nav-item {% if route == 'app_login' %}active{% endif %}"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
                 {% endif %}
                 </ul>
 
@@ -55,31 +53,38 @@
             </div>
         </nav>
     </header>
+
     {#div body#}
-    <div class="container-fluid bg-secondary">
+    <div class="container-fluid">
     {% block body %}{% endblock %}
     </div>
+
     {#Footer#}
-    <footer class="container mt-auto pb-5 textcolor">
-        <div class="row bg-dark">
-            <div class="col-md-4 mt-3">Contact:
-                <span class="font-weight-bold">LocAutoVintage</span><br>
-                <span>
-                    <span><td>&nbsp;</td>07.85.01.01.01</span><br>
-                    <span><td>&nbsp;</td>contact@locautovintage.com</span><br>
-                </span>
-            </div>
-            <div class="col-md-4 mt-3 socialicons">
-                <span><a href="{{ path('conditions_utilisation') }}" class="cgucolor" target="_blank" title="'Conditions Générales d'Utilisation' (Nouvelle fenêtre)">C.G.U.</a></span><br><br>
-                <span><a href="https://www.facebook.com/" target="_blank" title="Nouvelle fenêtre" class="fa fa-facebook"></a></span>
-                <span><a href="https://twitter.com/" target="_blank" title="Nouvelle fenêtre" class="fa fa-twitter"></a></span></li></span>
-                <span><a href="https://www.instagram.com/" target="_blank" title="Nouvelle fenêtre" class="fa fa-instagram"></a></span><br>
-            </div>
-            <div class="col-md-4 mt-3" style="text-align: right;">©2020 LocAutoVintage</div>
-        </div><br>
-        <div class="row col-md-4 offset-5 pt-0"><br><br></div>
+    <footer class="mt-auto bg-dark textcolor d-flex align-items-center flex-wrap">
+        <div class="col-md-3 offset-1">
+            {# list-unstyled = remove dots (list-style:none;) && (padding-left:0;) #}
+            <ul class="list-unstyled m-0">
+                <li>Contact:</li>
+                <li><span class="font-weight-bold">LocAutoVintage</span></li>
+                <li>07.85.01.01.01</li>
+                <li>contact@locautovintage.com</li>
+            </ul>
+        </div>
+        <div class="col-md-4 text-center">
+            <a href="{{ path('conditions_utilisation') }}" class="text-light" target="_blank" title="'Conditions Générales d'Utilisation' (Nouvelle fenêtre)">C.G.U.</a>
+            {# <div class="d-flex-inline justify-content-around"> #}
+                <ul class="list-unstyled list-inline my-1">
+                    {# font-size : h3 #}
+                    <li class="list-inline-item"><a href="https://www.facebook.com/" target="_blank" title="Nouvelle fenêtre" class="fa fa-facebook p-2 text-light text-decoration-none"></a></li>
+                    <li class="list-inline-item"><a href="https://twitter.com/" target="_blank" title="Nouvelle fenêtre" class="fa fa-twitter p-2 text-light text-decoration-none"></a></li>
+                    <li class="list-inline-item"><a href="https://www.instagram.com/" target="_blank" title="Nouvelle fenêtre" class="fa fa-instagram p-2 text-light text-decoration-none"></a></li>
+                </ul>
+            {# </div> #}
+        </div>
+        <div class="col-md-3 text-right">©2020 LocAutoVintage</div>
     </footer>
-    {#Inclusion des Scripts#}
+
+    {# Inclusion des Scripts #}
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>

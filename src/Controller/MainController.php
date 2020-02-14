@@ -106,27 +106,6 @@ class MainController extends AbstractController
                 // Le mailer est récupéré automatiquement en paramètre par autowiring dans $mailer
 
                 // Création du mail
-                // T: indentation bon sang ! pas étonnant que ça fonctionne pas ensuite !
-                // T: en plus ça c'est pour envoyer un mail automatique en cas d'inscription !
-                /*
-                $message = (new Swift_Message('email inscription'))
-                    ->setFrom('locautovintage@noreply.com')     // Expediteur
-                    ->setTo('destinataire@example.com')     // destinataire
-                    ->setBody(
-                        $this->renderView(
-                                'email/email_inscription.html.twig'     // Version HTML du mail (une vue twig)
-                            ),
-                        'text/html'
-                    )
-                    ->addPart(
-                        $this->renderView(
-                                'email/email_inscription.txt.twig'      // Version textuelle du mail (un TXT/twig !)
-                            ),
-                        'text/plain'
-                    )
-                ;
-                */
-
                 $message = (new Swift_Message('Contact email'))
                     ->setFrom( $form->get('from')->getViewData() )
                     ->setSubject( $form->get('subject')->getViewData() )
@@ -179,7 +158,7 @@ class MainController extends AbstractController
         }
 
         // send to datase && message de vainqueur && return to 'profil'
-        $em = $this->getDoctrine()->getmanager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($this->getUser());
         $em->flush();
         $this->addFlash('success', 'Votre profil fut modifié.');
@@ -272,7 +251,7 @@ public function createVehicle(Request $request){
             }
 
             // envoie tout ça en database
-            $em = $this->getDoctrine()->getmanager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($newVehicle);
             $em->flush();
             //Création d'un message flash de succès

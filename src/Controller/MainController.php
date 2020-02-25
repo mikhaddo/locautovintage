@@ -58,10 +58,10 @@ class MainController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/test-json/", name="test_json")
+        /**
+     * @Route("/autos-disponibles/json", name="car_list_json")
      */
-    public function testJson()
+    public function carListJson()
     {
         $vehicleRepository = $this->getDoctrine()->getRepository(Vehicle::class);
         $vehicles = $vehicleRepository->findAll();
@@ -226,11 +226,13 @@ public function createVehicle(Request $request){
                     $newVehicle->getBrand() .
                     $newVehicle->getModel() .
                     '-' .
-                    1 // first one en dur
+                    1 . // first one en dur here
+                    '.' .
+                    $pictureFile->getClientOriginalExtension()
                 ;
 
                 // supprime les caractères spéciaux dans le nom de fichier, et en base de donnée
-                $safeFilename = preg_replace("/[^A-Za-z0-9_-]/", '', $newFilename);
+                $safeFilename = preg_replace("/[^A-Za-z0-9\_\-\.]/", '', $newFilename);
 
                 // dépace ce fichier fraichement renomé au bon endroit
                 try {

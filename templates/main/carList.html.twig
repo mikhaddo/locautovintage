@@ -39,7 +39,22 @@
 
     <div class="col-md-6">
         <h2 class="text-center my-3">La Localisation</h2>
+
+        <div class="text-center">
+            <p id="champ-food">remplir les champs dans l'ordre svp</p>
+            <p>
+                <label for="champ-city">Ville : </label>
+                <input type="text" id="champ-city" placeholder="ville" value="">
+            </p>
+            <p>
+                <label for="champ-distance">distance : </label>
+                <input type="range" min="1" max="200" id="champ-distance" placeholder="25" value="">
+            </p>
+            <p id="value-distance"></p>
+        </div>
+
         <div class="col-md-10 offset-md-1 vh-100 my-4 mx-auto" id="map"></div>
+
     </div>
 
 </div>

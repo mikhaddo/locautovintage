@@ -70,7 +70,6 @@ class VehicleDetailsController extends AbstractController
                     if ($pictureFile) {
 
                         $originalFilename = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
-
                         // besoin d'une condition qui vérifie le nombre d'images et qui incrémente jusqu'à cinq !
                         // pour chaques vielles photos existantes on les décompacte dans un tableau
                         // vérifier que ça ne plante pas si aucun vehicule en base de donnée !
@@ -89,11 +88,15 @@ class VehicleDetailsController extends AbstractController
                                 $vehicle->getBrand() .
                                 $vehicle->getModel() .
                                 '-' .
-                                ( count($arrayFilename) + 1 )
+                                ( count($arrayFilename) + 1 ) .
+                                '.' .
+                                $pictureFile->getClientOriginalExtension()
                             ;
 
                             // supprime les caractères spéciaux dans le nom de fichier, et en base de donnée
-                            $safeFilename = preg_replace("/[^A-Za-z0-9_-]/", '', $newFilename);
+                            // rajout du '.' pour le '.jpg' par exemple.
+                            // en fait cette regex enlève tout ce qui ne fait pas partie avec négation '^' méfiance.
+                            $safeFilename = preg_replace("/[^A-Za-z0-9\_\-\.]/", '', $newFilename);
 
                             // dépace ce fichier fraichement renomé au bon endroit
                             try {

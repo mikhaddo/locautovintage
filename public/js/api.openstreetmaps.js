@@ -5,14 +5,15 @@ var map = null;
 var lat = 46.952;
 var lng = 4.28109;
 
+let city = distance = circle = "";
+
 /**
  * attente du chargement complet du DOM avant de lancer les requêttes,
  * sinon le site attends toutes les réponses aux promesses avant de charger le footer
  * // old ::
- * //     window.addEventListener("DOMContentLoaded", (event) => {
+ * //     window.addEventListener("DOMContentLoaded", function(event){
  * //         console.log('DOM entièrement chargé et analysé' + event);
  * //     })
- * // function() <- non fleché
  */
 window.onload = () => {
 
@@ -32,8 +33,6 @@ window.onload = () => {
     documentMapSelector.prepend(divProcess);
 
     let imgProcess = document.createElement('img');
-    // marche pô "{{ asset('images/ajax-loader.svg') }}"
-    // écrit en chemin relatif par rapport au .js
     imgProcess.src = "../images/ajax-loader.svg";
     imgProcess.style.position = 'absolute';
     imgProcess.style.top = '50%'
@@ -44,48 +43,36 @@ window.onload = () => {
     /**
      * fonction asynchrone : s'executera quand ça aura le temps.
      * peut retourner une promesse d'echec ou réussite.
-     * Fetch les données JSON de la base de donnée pour récupérer les villes
-     * Équivalent à ajax.
-     */
-    async function getDatabase() {
-        return new Promise(function(resolve, reject){
-            fetch('/test-json/', {
-                headers: {'Content-Type': 'application/json'},
-            }).then((response) => {
-                resolve(response.json());
-            }).catch((error) => {
-                reject('Error-catched:', error);
-            });
-        })
-    }
-
-    /**
-     * fonction asynchrone : s'executera quand ça aura le temps.
-     * peut retourner une promesse d'echec ou réussite.
      * Ajax requêtte à une API (javaScript natif, tu vois c'est pas plus long),
      * conversion à la volée city -> en latitude & longitude
      * ~ amélioration possible, envoyer d'un côŧé l'url et de l'autre le data="q="
      * ~ amélioration possible : rechercher aussi par code postal
+     * @param {string} url
      */
-    async function getAjaxGeo(city){
+    function getAjax(url){
         return new Promise(function(resolve, reject){
+            // gestion de la promesse
             let xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = () => {
+
+            // pas de function ()=> ici !
+            xmlhttp.onreadystatechange = function(){
                 if(xmlhttp.readyState == 4){
                     if(xmlhttp.status == 200){
-                        resolve(JSON.parse(xmlhttp.responseText));
+                        // resolve(JSON.parse(xmlhttp.response));
+                        resolve(xmlhttp.responseText)
                     } else {
-                        reject(xmlhttp.statusText);
+                        reject(xmlhttp.status);
                     }
                 }
             }
 
+            // la connexion à été interrompue
             xmlhttp.onerror = function(error){
                 reject(error);
             }
 
-            // requête asynchrone url="https://nominatim.openstreetmap.org/search", type="GET", data="q="+city+"&format=geojson"
-            xmlhttp.open("GET","https://nominatim.openstreetmap.org/search?q=" + city + "&format=geojson", true);
+            // envoit d'arguments
+            xmlhttp.open("GET",url,true);
             xmlhttp.send(null);
         })
     }
@@ -96,13 +83,49 @@ window.onload = () => {
      * on est sensés l'envoyer au bon moment !
      * ~ améliorations possibles : pourquoi c'est en asynchrone ?
      */
-    async function getRemoveDestin(){
+    function getRemoveDestin(){
         return new Promise(function(resolve, reject){
             resolve(documentMapSelector.removeChild(documentMapSelector.firstElementChild));
             console.info('.then(getDatabase)->terminée->roue du destin virée');
             reject('error getRemoveDestin(), weirdo non ?')
         })
     }
+
+    /**
+     * création et affichage de la map grâce à notre leaflet
+     * name : pour plus tard, permettra de ne pas surpprimer cette couche
+     */
+    let map = L.map('map').setView([lat, lng], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        attribution: 'donn&eacute;es &copy; <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+        minZoom: 1,
+        maxZoom: 19,
+        name: 'tiles'
+    }).addTo(map);
+
+    // gestion des champs front-end pour choisir des villes & distances !
+    let champCity = document.getElementById('champ-city');
+    let champDistance = document.getElementById('champ-distance');
+    let valueDistance = document.getElementById('value-distance');
+
+    // petit front pour demander de remplir les champs correctement
+    let champFood = document.getElementById('champ-food');
+    let champFoodBool = false;
+    champFood.style.border = 'red 1px dashed';
+    champFood.style.backgroundColor = 'yellow';
+
+    champCity.addEventListener("change", function(){
+        champFoodBool = true;
+        getAjax(`https://nominatim.openstreetmap.org/search?q=${this.value}&format=json&addressdetails=1&limit=1&polygon_svg=1`).then(response => {
+            // on convertit la réponse en objet javaScript
+            let data = JSON.parse(response);
+            // on stocke les coordonnées dans ville
+            city = [data[0].lat, data[0].lon];
+            console.info('sélection lieux : ' + data[0].display_name + ' ' + city);
+            // on centre la carte sur la ville
+            map.panTo(city);
+        });
+    });
 
     /**
      * lancement de la function getDatabase(),
@@ -114,72 +137,95 @@ window.onload = () => {
      * // Promise.all([getDatabase(),getAjax()]).then(([response1, response2]) => {})
      * ~ quand c'est fini ça doit remove la roue du destin, à améliorer stp.
      */
-    getDatabase().then(markers => {
-        console.info('getDatabase');
+    champDistance.addEventListener("change", function(){
+        // on récupère la distance choisie
+        distance = this.value;
+        console.log('distance : ' + distance + ' km');
 
-        /**
-         * création et affichage de la map grâce à notre leaflet
-         * // old ::
-         * // déclaré en non->object ?
-         * // map = L.map('map').setView([lat,lng],14);
-         */
-        map = new L.map('map').setView(new L.LatLng(lat, lng), 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-            attribution: 'donn&eacute;es &copy; <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-            minZoom: 1,
-            maxZoom: 19,
-        }).addTo(map);
+        // on écrit cette valeur sur la page
+        valueDistance.innerText = distance + 'km';
 
-        /**
-         * pour toutes les villes récupérées dans le tableau cities
-         * on appel la function getAjaxGeo() et on l'inclut sur la map.
-         * avec son popup (on pense à développer)
-         * // old ::
-         * // for(city of cities){ console.log(city) ) // ne donne pas le bon city.
-         * // this.cities.forEach(function(city){});
-         * // .bindPopup(tempMessages[i++])
-         * ~ l'utilité de 'this.' ?
-         * what time is it ? think it's not woking at all o'clock !
-         */
-        // var returnVehiclesAdress = [];
-        // var markersLayers = L.markerClusterGroup();
-        for(i=0;i<markers.returnVehicles.length;i++){
+        // en plus faut pas sélectionner trop vite si le ajax rame, car il trouve pas la ville !
+        if(champFoodBool){
+            champFood.style.border = 'none';
+            champFood.style.backgroundColor = 'transparent';
+            champFood.innerText = 'champs remplis : merci !'
+        }
 
-            // what time is it ? it is not workin'o'clock
-            //var varReturnVehicles = markers.returnVehicles[i];
+        // ici nous chercherons les agences correspondantes à la localisation
+        if(city != ""){
+            // améliorations possibles : récupérer seulement en fonction de la ville et distance choisie
+            getAjax('/autos-disponibles/json').then(response => {
 
-            getAjaxGeo(markers.returnVehicles[i]['city']).then((responseText) => {
+                // on supprime toutes les couches de la carte
+                map.eachLayer(function(layer){
+                    if(layer.options.name != 'tiles') map.removeLayer(layer);
+                });
 
-                    console.info('getAjaxGeo :: ' + responseText.features[0].geometry.coordinates);
-                    //  var varMarker = L.marker([responseText.features[0].geometry.coordinates[1],responseText.features[0].geometry.coordinates[0]])
-                    L.marker([responseText.features[0].geometry.coordinates[1],responseText.features[0].geometry.coordinates[0]])
-                        .addTo(map)
-                        // le bind poppup doit afficher l'image récupérée depuis la database
-                        // en tout cas on ne peut pas rappeller son objet ci-dessous
-                        // markers a disparu, maintenant c'est response ou alo
+                // on trace un cercle correspondant à la distance souhaitée
+                let circle = L.circle(city, {
+                    color: "#839c49",
+                    fillColor: "#08c08c",
+                    fillOpacity: 0.3,
+                    radius: distance * 100
+                }).addTo(map);
 
-                        //.bindPopup(responseText.features[0].properties.display_name + '<br>Propriétaire du véhicule :: <br>' + returnVehiclesAdress.firstname )
-                        .bindPopup(responseText.features[0].properties.display_name)
-                    ;
-                // markersLayers.addLayer(varMarkers)
-                // returnVehiclesAdress.push(varMarker);
+                // on convertit la réponse en Object javaScript
+                let data = JSON.parse(response)
 
-            }).catch(error => {
-                console.error('Error \'getAjaxGeo\' ! possibilité mauvais nom de ville.');
-                console.dir(error);
+                // recréation d'un objet javaScript, pour les données sur les véhicules
+                console.info(data);
+                let objVehicles = {
+                    firstname:[],
+                    picture:[]
+                };
+                for( i=0 ; i < data.returnVehicles.length ; i++){
+                    objVehicles.firstname.push(data.returnVehicles[i].firstname);
+                    objVehicles.picture.push(data.returnVehicles[i].picture);
+                }
+                console.log(objVehicles);
+
+                // création d'une case image trop stylée
+                function definePopup(objVehicles) {
+                    var popupText =
+                                // "<b>Location Description: </b>"+entry[2]+"<br>"+
+                                // "<b>Work Date: </b>"+entry[3]+"<br>"+
+                                // "<b>Graffiti Type: </b>"+entry[5]+"<br>"+
+                                // "<b>Graffiti Material: </b>"+entry[6]+"<br>"+
+                                "<b>Nom du propriétaire: </b>"+objVehicles.firstname[j]+"<br>"+
+                                //"<b>Image: </b><a href='"+entry[0]+"' target=\"_blank\">"+"<img src='"+entry[0]+"&previewImage=true'</img></a>";
+                                // if exist
+                                "<b>Image: </b><img src='../images/pictures/"+
+                                objVehicles.picture[j][0]+
+                                "'&previewImage='true' style='width:100px;height:50px;'</img>";
+                    return popupText;
+                }
+
+                // 'j' nous servira pour incrémenter un compteur à la fin de chaque boucles de données.
+                let j=0;
+                for( i=0 ; i < data.returnVehicles.length ; i++){
+                    getAjax(`https://nominatim.openstreetmap.org/search?q=${data.returnVehicles[i].city}&format=json&addressdetails=1&limit=1&polygon_svg=1`)
+                    .then(response2 => {
+
+                        // on boucle sur les données
+                        Object.entries(JSON.parse(response2)).forEach(agence => {
+                            // on crée le marqueur
+                            let marker = L.marker([agence[1].lat, agence[1].lon]).addTo(map);
+                            marker.bindPopup(definePopup(objVehicles));
+                            console.log(agence);
+                            console.log(response2);
+                            j++;
+                        });
+
+                    });
+                }
+
+                // on centre la carte sur le cercle
+                let bounds = circle.getBounds();
+                map.fitBounds(bounds);
             });
         }
 
-    }).catch(error => {
-        console.error('Error \'getDatabase\' fiston !');
-        console.dir(error);
-    }).then(() => {
-        // supression de la roue du destin, même si c'est pas au bon endroit !
-        getRemoveDestin();
-        // var groupMarkers = new L.featureGroup(returnVehiclesAdress);
-        // carte.fitBounds(groupMarkers.getBounds().pad(0.5));
-        // carte.addLayer(varMarkers);
     });
 
-// EOF (End Of File, fin de la de la fonction principale englobante.)
-}
+} // EOF (End Of File, fin de la de la fonction principale englobante.)

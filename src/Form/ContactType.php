@@ -12,13 +12,35 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 
+use App\Entity\User;
+
+
 class ContactType extends AbstractType
 {
+
+    protected $thisUserEmail = 'albert@caramail.fr';
+
+    public function getThisUserEmail()
+    {
+        return $this->thisUserEmail;
+    }
+
+    public function setThisUserEmail(?String $userEmail)
+    {
+        if($userEmail != NULL){
+            $this->thisUserEmail = $userEmail;
+        }
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('from', TextType::class, [
                 'label' => 'Adresse Email',
+                'attr' => [
+                    'class' => '',
+                    'placeholder' => $this->getThisUserEmail(),
+                ],
                 'constraints' => [
                     new Email([
                         'message' => 'Veuillez mettre une adresse email valide'
@@ -67,7 +89,8 @@ class ContactType extends AbstractType
         $resolver->setDefaults([
             'attr' => [
                 'novalidate' => 'novalidate'
-            ]
+            ],
+            'data_class' => User::class,
         ]);
     }
 }

@@ -32,18 +32,6 @@ class UserType extends AbstractType
             // ->add('roles') sensible et array to string conversion garçon !
             // à la limite ça aurait été sympa pour le panneau administration
 
-            ->add('email', EmailType::class, [
-                'label' => 'Adresse Email',
-                'required' => true,
-                'constraints' => [
-                    new Email([
-                        'message' => 'Veuillez rentrer une adresse email valide.'
-                    ]),
-                    new NotBlank([
-                        'message' => 'Merci de mettre une adresse email.',
-                    ]),
-                ]
-            ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'required' => false,
@@ -139,13 +127,31 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'Accepter les chagements ?',
+                'label' => '* Accepter les chagements ?',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Merci d\'accepter et confirmer les chagements.',
                     ]),
                 ],
+            ])
+            ->add('email', EmailType::class, [
+                'label' => '* Adresse Email',
+                'required' => true,
+                'constraints' => [
+                    new Email([
+                        'message' => 'Veuillez rentrer une adresse email valide.'
+                    ]),
+                    new NotBlank([
+                        'message' => 'Merci de mettre une adresse email.',
+                    ]),
+                ]
+            ])
+            ->add('password', PasswordType::class, [
+                'mapped' => false,
+                'required' => true,
+                'label' => '* Ancien mot de passe',
+                'invalid_message' => 'ancien password erroné.'
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Modifier',

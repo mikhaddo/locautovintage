@@ -17,6 +17,7 @@ use \Swift_Message; //Importation des deux classes necessaires pour envoyer un e
 use \Swift_Mailer;
 // T: maintenant on peut changer le password !
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 // T: téléversements
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -89,9 +90,18 @@ class MainController extends AbstractController
     /**
      * @Route("/contactez-nous", name="contact")
      */
-    public function contact(Request $request, RecaptchaValidator $recaptcha, Swift_Mailer $mailer)
+    public function contact(ContactType $contactType, Request $request, RecaptchaValidator $recaptcha, Swift_Mailer $mailer)
     {
-        $form = $this->createForm(ContactType::class);
+
+        // default placeholder IF user is connected
+        // see App\Form\ContactType -> gettersetters/protected value.
+        if($this->getUser() != NULL){
+            $placeholderUser = $contactType->setThisUserEmail( $this->getUser()->getEmail() );
+        } else {
+            $placeholderUser = NULL;
+        }
+
+        $form = $this->createForm(ContactType::class, $placeholderUser);
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
@@ -133,7 +143,7 @@ class MainController extends AbstractController
   * Si la personne qui essaye de venir sur cette page n'est pas connectée, elle sera redirigée à la page de connexion par le firewall
   * n'oublis pas le Request en argument !
   */
-  public function profil(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+  public function profil(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserInterface $user)
   {
 
     // search repository véhicles
@@ -145,6 +155,17 @@ class MainController extends AbstractController
     $formProfil->handleRequest($request);
 
     if($formProfil->isSubmitted() && $formProfil->isValid()){
+
+        if(
+            // need UserPasswordEncoderInterface $passwordEncoder && UserInterface $user
+            !$passwordEncoder->isPasswordValid(
+                $user,
+                $formProfil->get('password')->getData()
+            )
+        ){
+            $this->addFlash('error', 'Veuillez entrer votre ancien mot de passe correct pour valider.');
+            return $this->redirectToRoute('profil');
+        }
 
         if( $formProfil->get('plainPassword')->getData() != null ) {
             // encode the plain password
@@ -162,7 +183,7 @@ class MainController extends AbstractController
         $em->persist($this->getUser());
         $em->flush();
         $this->addFlash('success', 'Votre profil fut modifié.');
-       return $this->redirectToRoute('profil');
+        return $this->redirectToRoute('profil');
     }
 
     return $this->render('main/profil.html.twig',[

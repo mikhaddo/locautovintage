@@ -9,9 +9,12 @@
     {% for message in app.flashes('success') %}
         <div class="alert alert-success col-12">{{ message }}</div>
     {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger col-12">{{ message }}</div>
+    {% endfor %}
 
     <div class="col-10 offset-1 container-fluid">
-        
+
         <div class="row">
             {# T :: bootrap : penser à rajouter -sm- pour enfin pouvoir wrap en responsive #}
             <div class="col-sm-8">

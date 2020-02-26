@@ -184,6 +184,7 @@ window.onload = () => {
                     objVehicles.picture.push(data.returnVehicles[i].picture);
                 }
                 console.log(objVehicles);
+                console.log("%c📛STOP📛", "color: red; font-size: 100pt;");
 
                 // création d'une case image trop stylée
                 function definePopup(objVehicles) {
@@ -212,8 +213,6 @@ window.onload = () => {
                             // on crée le marqueur
                             let marker = L.marker([agence[1].lat, agence[1].lon]).addTo(map);
                             marker.bindPopup(definePopup(objVehicles));
-                            console.log(agence);
-                            console.log(response2);
                             j++;
                         });
 

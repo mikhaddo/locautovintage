@@ -112,10 +112,7 @@ class VehicleDetailsType extends AbstractType
             ],
         ])
         ->add('pictures',FileType::class, [
-            'label'         => 'Téléversez une photographie du véhicle : jusqu\'à cinq images !',
-            'attr' => [
-                'class' => '',
-            ],
+            'label' => 'Téléversez une photographie du véhicle : jusqu\'à cinq images !',
             'mapped' => false,
             'required' => false,
             'constraints' => [

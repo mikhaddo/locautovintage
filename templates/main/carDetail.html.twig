@@ -61,7 +61,7 @@
     {% if (verificationUserOwnage) %}
     <div class="col-10 col-sm-3">
         <h2 class="text-center my-3">Modifier véhicule</h2>
-            {{ form(formDetailsVehicle) }}
+        {{ form(formDetailsVehicle) }}
     </div>
     {% endif %}
 
@@ -72,4 +72,6 @@
 {% block javascripts %}
     {# Affichage photo en grand format en overlay #}
     <script src="{{ asset('js/viewer.js') }}"></script>
+    {# Correction d'un bug de bootstrap qui n'écrit pas le nom du fichier téléversé #}
+    <script src="{{ asset('js/fix-bootstrap-input-file.js') }}"></script>
 {% endblock %}

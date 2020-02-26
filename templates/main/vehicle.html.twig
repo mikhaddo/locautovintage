@@ -17,3 +17,8 @@
 </div>
 
 {% endblock %}
+
+{% block javascripts %}
+    {# Correction d'un bug de bootstrap qui n'écrit pas le nom du fichier téléversé #}
+    <script src="{{ asset('js/fix-bootstrap-input-file.js') }}"></script>
+{% endblock %}

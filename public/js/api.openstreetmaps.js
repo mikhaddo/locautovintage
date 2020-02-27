@@ -30,6 +30,7 @@ window.onload = () => {
     divProcess.style.backgroundColor = 'rgba(0,0,0,0.7)';
     divProcess.style.width = '100%';
     divProcess.style.height = '100%';
+    divProcess.style.zIndex = 9;
     documentMapSelector.prepend(divProcess);
 
     let imgProcess = document.createElement('img');
@@ -81,14 +82,37 @@ window.onload = () => {
      * 'roue du destin'
      * la commande pour effacer la petite image qui fait patienter
      * on est sensés l'envoyer au bon moment !
-     * ~ améliorations possibles : pourquoi c'est en asynchrone ?
      */
     function getRemoveDestin(){
-        return new Promise(function(resolve, reject){
-            resolve(documentMapSelector.removeChild(documentMapSelector.firstElementChild));
+        // return new Promise(function(resolve, reject){
+            // resolve(documentMapSelector.removeChild(documentMapSelector.firstElementChild));
+            documentMapSelector.removeChild(documentMapSelector.firstElementChild);
             console.info('.then(getDatabase)->terminée->roue du destin virée');
-            reject('error getRemoveDestin(), weirdo non ?')
-        })
+            // reject('error getRemoveDestin(), weirdo non ?')
+        // })
+    }
+
+    /**
+     * création d'une case image trop stylée
+     * @param {string} vehiculeFirstname
+     * @param {string} vehiculePictureFirst
+     * @param {int} postcode
+     */
+    function definePopup(vehiculeFirstname, vehiculePictureFirst, postcode) {
+        console.log(vehiculeFirstname,vehiculePictureFirst,postcode);
+        var popupText =
+            // "<b>Location Description: </b>"+entry[2]+"<br>"+
+            // "<b>Work Date: </b>"+entry[3]+"<br>"+
+            // "<b>Graffiti Type: </b>"+entry[5]+"<br>"+
+            // "<b>Graffiti Material: </b>"+entry[6]+"<br>"+
+            "<b>Nom du propriétaire: </b>"+vehiculeFirstname+"<br>"+
+            //"<b>Image: </b><a href='"+entry[0]+"' target=\"_blank\">"+"<img src='"+entry[0]+"&previewImage=true'</img></a>";
+            // if exist
+            "<b>Image: </b><img src='../images/pictures/"+
+            // elementObjVehicles.picture[j][0]+
+            vehiculePictureFirst+
+            "'&previewImage='true' style='width:100px;height:50px;'</img>";
+        return popupText;
     }
 
     /**
@@ -172,49 +196,36 @@ window.onload = () => {
 
                 // on convertit la réponse en Object javaScript
                 let data = JSON.parse(response)
+                // console.info(data);
+                console.log("%c📛STOP📛", "color: red; font-size: 25pt;");
 
-                // recréation d'un objet javaScript, pour les données sur les véhicules
-                console.info(data);
-                let objVehicles = {
-                    firstname:[],
-                    picture:[]
-                };
-                for( i=0 ; i < data.returnVehicles.length ; i++){
-                    objVehicles.firstname.push(data.returnVehicles[i].firstname);
-                    objVehicles.picture.push(data.returnVehicles[i].picture);
-                }
-                console.log(objVehicles);
-                console.log("%c📛STOP📛", "color: red; font-size: 100pt;");
-
-                // création d'une case image trop stylée
-                function definePopup(objVehicles) {
-                    var popupText =
-                                // "<b>Location Description: </b>"+entry[2]+"<br>"+
-                                // "<b>Work Date: </b>"+entry[3]+"<br>"+
-                                // "<b>Graffiti Type: </b>"+entry[5]+"<br>"+
-                                // "<b>Graffiti Material: </b>"+entry[6]+"<br>"+
-                                "<b>Nom du propriétaire: </b>"+objVehicles.firstname[j]+"<br>"+
-                                //"<b>Image: </b><a href='"+entry[0]+"' target=\"_blank\">"+"<img src='"+entry[0]+"&previewImage=true'</img></a>";
-                                // if exist
-                                "<b>Image: </b><img src='../images/pictures/"+
-                                objVehicles.picture[j][0]+
-                                "'&previewImage='true' style='width:100px;height:50px;'</img>";
-                    return popupText;
-                }
-
-                // 'j' nous servira pour incrémenter un compteur à la fin de chaque boucles de données.
+                // `j` nous servira pour incrémenter un compteur à la fin de chaque boucles de données.
+                // et notre groupe de layers sera dans `markers`
                 let j=0;
+                var markers = L.markerClusterGroup();
+                console.log(markers);
                 for( i=0 ; i < data.returnVehicles.length ; i++){
                     getAjax(`https://nominatim.openstreetmap.org/search?q=${data.returnVehicles[i].city}&format=json&addressdetails=1&limit=1&polygon_svg=1`)
                     .then(response2 => {
 
-                        // on boucle sur les données
+                        // une fois que l'on a fait toutes les requêttes `i`, on boucle sur les données
                         Object.entries(JSON.parse(response2)).forEach(agence => {
                             // on crée le marqueur
-                            let marker = L.marker([agence[1].lat, agence[1].lon]).addTo(map);
-                            marker.bindPopup(definePopup(objVehicles));
+                            //.addTo(map); old, obsolète !
+                            let marker = L.marker([agence[1].lat, agence[1].lon]);
+                            marker.bindPopup(definePopup(
+                                data.returnVehicles[j].firstname,
+                                data.returnVehicles[j].picture[0],
+                                // il me semble qu'il y ait un bug, certaines voitures se retrouvent dans les mauvaises villes
+                                agence[1].address.postcode
+                            ));
+                            markers.addLayer(marker);
+
                             j++;
                         });
+
+                        // placement de tous les markers, y compris les groupés, sur la map
+                        map.addLayer(markers);
 
                     });
                 }
@@ -222,7 +233,10 @@ window.onload = () => {
                 // on centre la carte sur le cercle
                 let bounds = circle.getBounds();
                 map.fitBounds(bounds);
-            });
+            })
+            .then(getRemoveDestin());
+            // suppression de la roue du destin, un peu tôt mais fonctionnel
+
         }
 
     });

@@ -3,9 +3,12 @@
 {% block title %}La collection{% endblock %}
 
 {% block stylesheets %}
-{# ne gère pas les images, donc pour le moment : CDN #}
-{# <link rel="stylesheet" href="{{ asset('css/leaflet.css') }}"> #}
+{# ne récupère pas automatiquement le dossier d'images de leaflet, donc : CDN #}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
+{# need /img #}
+{# <link rel="stylesheet" href="{{ asset('css/leaflet.css') }}"> #}
+<link rel="stylesheet" href="{{ asset('css/MarkerCluster.css') }}">
+<link rel="stylesheet" href="{{ asset('css/MarkerCluster.Default.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -63,5 +66,7 @@
 
 {% block javascripts %}
 <script src="{{ asset('js/leaflet.js') }}"></script>
+{# leaflet extension : regroup the markers #}
+<script src="{{ asset('js/leaflet.markercluster.js') }}"></script>
 <script src="{{ asset('js/api.openstreetmaps.js') }}"></script>
 {% endblock %}

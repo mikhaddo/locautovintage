@@ -142,8 +142,9 @@ class MainController extends AbstractController
   * @Security("is_granted('ROLE_USER')")
   * Si la personne qui essaye de venir sur cette page n'est pas connectée, elle sera redirigée à la page de connexion par le firewall
   * n'oublis pas le Request en argument !
+  * user NULL by defaut, if somebody not logged try to go /profil by hand
   */
-  public function profil(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserInterface $user)
+  public function profil(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserInterface $user = NULL)
   {
 
     // search repository véhicles

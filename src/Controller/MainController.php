@@ -74,6 +74,7 @@ class MainController extends AbstractController
          */
         foreach($vehicles as $vehicle){
             $returnVehicles[] = [
+                'owner_id' => $vehicle->getOwner()->getId(),
                 'city' => $vehicle->getOwner()->getCity(),
                 'firstname' => $vehicle->getOwner()->getFirstname(),
                 'year_produce' => $vehicle->getYearProduced(),

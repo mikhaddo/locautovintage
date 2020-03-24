@@ -5,6 +5,7 @@ Site mettant en relation des propriétaires d'autos anciennes et des amateurs de
 - [#locautovintage](#locautovintage)
     - [#reconstruction-de-votre-projet](#reconstruction-de-votre-projet)
     - [#améliorations-possibles](#améliorations-possibles)
+        - [#version-120--good-map](#version-120--good-map)
         - [#version-110--front-end-repair](#version-110--front-end-repair)
         - [#version-100--you-got-another-midnight-commit-](#version-100--you-got-another-midnight-commit-)
         - [#version-070beta--the-fiche-technique-du-véhicule-is-rétroversing-](#version-070beta--the-fiche-technique-du-véhicule-is-rétroversing-)
@@ -68,11 +69,16 @@ et maitenant ça se passe sur http://127.0.0.1:8000
 - header background-color dégradé
 - formulaire de recherche
 - js/visionnette.js
-- map-interractive : meilleure intégration
 - page d'administration pour gestion véhicules et utilisateurs
 - commentaire pour un véhicule en base de donnée
 - commentaires d'utilisateurs à la volée avec un formulaire javaScript
 - site en PROD, en sous domaine
+
+### [version 1.2.0](../../releases/tag/v1.2.0) :: good map
+> Map is truly functional
+- good whiles in javaScript object-mode, not with i++ in procedural-mode
+- cursors regroup with plugin leaflet : markercluster
+- paste the good pictures !
 
 ### [version 1.1.0](../../releases/tag/v1.1.0) :: front-end repair
 > front-end -> the-end !
